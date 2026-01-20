@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Arabic Alif Academy",
+  "description": "An interactive Arabic language learning app that teaches the alphabet using visual aids, voice-guided lessons, and engaging mini-games.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
