@@ -25,6 +25,7 @@ export interface ArabicLetter {
 
 export enum AppState {
   WELCOME = 'WELCOME',
+  MODULES = 'MODULES',
   THEORY = 'THEORY',
   LESSON = 'LESSON',
   GAME_PROMPT = 'GAME_PROMPT',

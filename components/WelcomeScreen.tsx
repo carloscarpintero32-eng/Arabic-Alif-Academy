@@ -37,10 +37,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           <span>Let's Start to Learn</span>
         </button>
       </div>
-      
-      <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-8">
-        Module 1: The Foundations of the Alphabet
-      </p>
     </div>
   );
 };

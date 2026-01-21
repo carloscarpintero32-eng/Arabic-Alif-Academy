@@ -1,21 +1,20 @@
 
 import React, { useEffect } from 'react';
 import { speechService } from '../services/geminiService';
-import { ArrowRight, Info, Languages, PenTool, Layout } from 'lucide-react';
+import { ArrowRight, Info, Languages, PenTool, Layout, Grid } from 'lucide-react';
 
 interface TheoryScreenProps {
   onContinue: () => void;
+  onBackToModules: () => void;
 }
 
-export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue }) => {
+export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackToModules }) => {
   useEffect(() => {
     speechService.speak(
       "Welcome to the fascinating world of Arabic! Did you know there are 28 letters in the Arabic alphabet? " +
       "Unlike English, we write from right to left, and there are no capital letters! " +
-      "While English has five vowels, Arabic uses 28 consonants, with three of them also serving as long vowels. " +
-      "Most other vowels are actually small marks above or below the letters. " +
       "The coolest part? Arabic is always written in a beautiful cursive style. " +
-      "Because letters connect, they change shape like chameleons depending on their position—at the beginning, middle, end, or alone. " +
+      "Because letters connect, they change shape like chameleons depending on their position. " +
       "Let's start our journey!"
     );
   }, []);
@@ -55,8 +54,8 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue }) => {
             <Languages className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-800">Consonants & Vowels</h3>
-            <p className="text-sm text-slate-500 leading-snug">28 consonants, with 3 that double as "long vowels." Short vowels are marks above or below letters.</p>
+            <h3 className="font-bold text-slate-800">Chameleon Shapes</h3>
+            <p className="text-sm text-slate-500 leading-snug">Letters change shape depending on if they are at the start, middle, or end of a word.</p>
           </div>
         </div>
 
@@ -65,41 +64,21 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue }) => {
             <Layout className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-800">Influence</h3>
-            <p className="text-sm text-slate-500 leading-snug">Many English words like "Sugar," "Coffee," and "Algebra" come directly from Arabic!</p>
+            <h3 className="font-bold text-slate-800">Cursive Writing</h3>
+            <p className="text-sm text-slate-500 leading-snug">Arabic is always cursive. Letters connect to each other in a beautiful flow.</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-indigo-600 text-white p-6 rounded-3xl shadow-lg space-y-4">
-        <div className="flex items-center space-x-2">
-          <div className="w-2 h-8 bg-white rounded-full"></div>
-          <h3 className="text-xl font-bold uppercase tracking-wider">The "Chameleon" States</h3>
-        </div>
-        <p className="text-indigo-50 text-sm leading-relaxed">
-          Because Arabic is cursive, letters "hug" each other to form words. Their shape depends on their position:
-        </p>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <div className="bg-white/10 p-3 rounded-xl text-center border border-white/20">
-            <span className="text-2xl arabic-text block">ب</span>
-            <span className="text-xs font-bold uppercase">Isolated</span>
-          </div>
-          <div className="bg-white/10 p-3 rounded-xl text-center border border-white/20">
-            <span className="text-2xl arabic-text block">بـ</span>
-            <span className="text-xs font-bold uppercase">Initial</span>
-          </div>
-          <div className="bg-white/10 p-3 rounded-xl text-center border border-white/20">
-            <span className="text-2xl arabic-text block">ـبـ</span>
-            <span className="text-xs font-bold uppercase">Medial</span>
-          </div>
-          <div className="bg-white/10 p-3 rounded-xl text-center border border-white/20">
-            <span className="text-2xl arabic-text block">ـب</span>
-            <span className="text-xs font-bold uppercase">Final</span>
-          </div>
-        </div>
-      </div>
+      <div className="mt-auto flex justify-between items-center">
+        <button
+          onClick={onBackToModules}
+          className="flex items-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 px-6 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition-all"
+        >
+          <Grid className="w-5 h-5" />
+          <span>Back to Modules</span>
+        </button>
 
-      <div className="mt-auto flex justify-end">
         <button
           onClick={onContinue}
           className="flex items-center space-x-2 bg-indigo-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-indigo-700 transition-all shadow-md transform hover:scale-105 active:scale-95"

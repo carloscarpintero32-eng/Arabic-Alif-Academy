@@ -2,12 +2,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ALPHABET_DATA } from '../constants';
 import { speechService } from '../services/geminiService';
-import { ArrowRight, PlayCircle, Volume2 } from 'lucide-react';
+import { ArrowRight, PlayCircle, Volume2, Grid } from 'lucide-react';
 import { Example } from '../types';
 
 interface LessonScreenProps {
   batchIndex: number;
   onComplete: () => void;
+  onBackToModules: () => void;
 }
 
 const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
@@ -25,7 +26,7 @@ const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
   );
 };
 
-export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComplete }) => {
+export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComplete, onBackToModules }) => {
   const letters = ALPHABET_DATA.slice(batchIndex * 5, (batchIndex + 1) * 5);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -109,7 +110,15 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
         ))}
       </div>
 
-      <div className="mt-auto flex justify-end items-center">
+      <div className="mt-auto flex justify-between items-center">
+        <button
+          onClick={onBackToModules}
+          className="flex items-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 px-6 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition-all"
+        >
+          <Grid className="w-5 h-5" />
+          <span>Back to Modules</span>
+        </button>
+        
         <button
           onClick={handleNext}
           className="flex items-center space-x-2 bg-indigo-600 text-white px-10 py-4 rounded-xl text-lg font-bold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-200"

@@ -3,12 +3,13 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ALPHABET_DATA } from '../constants';
 import { ArabicLetter, LetterPosition } from '../types';
 import { speechService } from '../services/geminiService';
-import { CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
+import { AlertCircle, Sparkles, Grid, CheckCircle2 } from 'lucide-react';
 
 interface MiniGameProps {
   batchIndex: number;
   testMode: 'current' | 'all';
   onComplete: () => void;
+  onBackToModules: () => void;
 }
 
 interface Question {
@@ -17,7 +18,7 @@ interface Question {
   options: ArabicLetter[];
 }
 
-export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onComplete }) => {
+export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onComplete, onBackToModules }) => {
   const [currentRound, setCurrentRound] = useState(0);
   const [incorrectGuesses, setIncorrectGuesses] = useState<number[]>([]);
   const [correctlyAnswered, setCorrectlyAnswered] = useState(false);
@@ -31,10 +32,13 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onComp
     const targetLetter = pool[Math.floor(Math.random() * pool.length)];
     const forms: LetterPosition[] = ['isolated', 'initial', 'medial', 'final'];
     const targetForm = forms[Math.floor(Math.random() * forms.length)];
-    
-    // Shuffle options - ensure target is included
-    let options = [...pool].sort(() => 0.5 - Math.random());
-    // If pool is larger than 5, we might want to slice, but here it's 5 or 10.
+    // Get 4 unique random options including the target
+    let options = [targetLetter];
+    const otherLetters = pool.filter(l => l.id !== targetLetter.id);
+    const shuffledOthers = [...otherLetters].sort(() => 0.5 - Math.random());
+    options.push(...shuffledOthers.slice(0, 3));
+    // Final shuffle
+    options = options.sort(() => 0.5 - Math.random());
     
     return { targetLetter, targetForm, options };
   }, [pool]);
@@ -50,7 +54,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onComp
 
     if (letter.id === question.targetLetter.id) {
       setCorrectlyAnswered(true);
-      const congratulatoryPhrases = ["Good job!", "Well done!", "Fantastic!", "You got it!", "Excellent work!"];
+      const congratulatoryPhrases = ["Good job!", "Well done!", "Fantastic!", "You got it!"];
       const speech = congratulatoryPhrases[Math.floor(Math.random() * congratulatoryPhrases.length)];
       await speechService.speak(speech);
       
@@ -71,13 +75,13 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onComp
   };
 
   const finishGame = async () => {
-    await speechService.speak("Congratulations on your achievement! You've mastered this set of letters.");
+    await speechService.speak("Congratulations! You've mastered this set of letters.");
     onComplete();
   };
 
   return (
     <div className="flex flex-col h-full animate-fadeIn items-center">
-      <div className="w-full flex justify-between items-center mb-8 bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+      <div className="w-full flex justify-between items-center mb-6 bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
         <div>
           <h2 className="text-xl font-black text-indigo-900 uppercase tracking-tight">Mini Game</h2>
           <p className="text-xs font-bold text-indigo-400">ROUND {currentRound + 1} OF 10</p>
@@ -92,63 +96,55 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onComp
         </div>
       </div>
 
-      <div className="relative mb-12 group">
-        <div className="bg-white border-4 border-indigo-600 w-52 h-52 rounded-[2.5rem] flex items-center justify-center shadow-xl transform transition-transform group-hover:rotate-2">
-          <span className="text-9xl arabic-text text-indigo-700 animate-fadeIn">
+      <div className="relative mb-8 group">
+        <div className={`bg-white border-4 ${correctlyAnswered ? 'border-green-500' : 'border-indigo-600'} w-44 h-44 rounded-[2.5rem] flex items-center justify-center shadow-xl transform transition-all duration-500`}>
+          <span className={`text-8xl arabic-text text-indigo-700 transition-opacity duration-300 ${correctlyAnswered ? 'opacity-50' : 'opacity-100'}`}>
             {question.targetLetter[question.targetForm]}
           </span>
+          {correctlyAnswered && (
+            <div className="absolute inset-0 flex items-center justify-center animate-scaleIn">
+              <CheckCircle2 className="w-24 h-24 text-green-500" />
+            </div>
+          )}
         </div>
-        <div className="absolute -bottom-4 bg-indigo-600 text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-lg">
+        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-indigo-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg whitespace-nowrap">
           {question.targetForm} form
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 w-full px-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full px-2 mb-12">
         {question.options.map((letter) => {
           const isIncorrect = incorrectGuesses.includes(letter.id);
-          const isCorrect = correctlyAnswered && letter.id === question.targetLetter.id;
-          
           return (
             <button
               key={letter.id}
               onClick={() => handleGuess(letter)}
-              disabled={correctlyAnswered}
-              className={`
-                h-28 rounded-3xl flex items-center justify-center text-4xl arabic-text font-bold transition-all transform active:scale-90 shadow-md border-b-4
-                ${isCorrect ? 'bg-green-500 text-white border-green-700 scale-110 z-10' : ''}
-                ${isIncorrect ? 'bg-red-500 text-white border-red-700 opacity-80 cursor-not-allowed animate-shake' : 'bg-white text-slate-700 border-indigo-100 hover:border-indigo-500 hover:bg-indigo-50'}
-              `}
+              disabled={correctlyAnswered || isIncorrect}
+              className={`p-6 rounded-3xl border-2 transition-all transform active:scale-95 text-center flex flex-col items-center justify-center h-32 relative overflow-hidden
+                ${isIncorrect 
+                  ? 'bg-red-50 border-red-200 text-red-300' 
+                  : correctlyAnswered && letter.id === question.targetLetter.id
+                    ? 'bg-green-50 border-green-500 text-green-700'
+                    : 'bg-white border-indigo-100 text-slate-700 hover:border-indigo-400 hover:shadow-lg'
+                }`}
             >
-              {letter.isolated}
+              <span className="text-3xl font-black mb-1">{letter.name}</span>
+              <span className="text-lg arabic-text opacity-40">{letter.isolated}</span>
+              {isIncorrect && <AlertCircle className="absolute top-2 right-2 w-4 h-4 text-red-400" />}
             </button>
           );
         })}
       </div>
 
-      <div className="mt-auto pt-8 flex items-center space-x-2 text-slate-500 font-bold uppercase text-xs tracking-widest">
-        {correctlyAnswered ? (
-          <div className="flex items-center text-green-600 animate-pulse">
-            <Sparkles className="w-5 h-5 mr-2" />
-            <span>Success! Next letter loading...</span>
-          </div>
-        ) : (
-          <div className="flex items-center text-indigo-400">
-            <AlertCircle className="w-5 h-5 mr-2" />
-            <span>Identify the isolated form above</span>
-          </div>
-        )}
+      <div className="mt-auto pt-6 border-t border-slate-100 w-full flex justify-center">
+        <button
+          onClick={onBackToModules}
+          className="flex items-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 px-6 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition-all"
+        >
+          <Grid className="w-5 h-5" />
+          <span>Back to Modules</span>
+        </button>
       </div>
-
-      <style>{`
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-5px); }
-          75% { transform: translateX(5px); }
-        }
-        .animate-shake {
-          animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both;
-        }
-      `}</style>
     </div>
   );
 };
