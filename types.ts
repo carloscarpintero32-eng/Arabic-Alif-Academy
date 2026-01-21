@@ -26,10 +26,12 @@ export interface ArabicLetter {
 export enum AppState {
   WELCOME = 'WELCOME',
   MODULES = 'MODULES',
+  LETTER_SELECTION = 'LETTER_SELECTION',
   THEORY = 'THEORY',
   LESSON = 'LESSON',
   GAME_PROMPT = 'GAME_PROMPT',
   MINI_GAME = 'MINI_GAME',
+  VOWELS = 'VOWELS',
   END = 'END'
 }
 

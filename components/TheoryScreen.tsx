@@ -14,7 +14,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
       "Welcome to the fascinating world of Arabic! Did you know there are 28 letters in the Arabic alphabet? " +
       "Unlike English, we write from right to left, and there are no capital letters! " +
       "The coolest part? Arabic is always written in a beautiful cursive style. " +
-      "Because letters connect, they change shape like chameleons depending on their position. " +
+      "Because letters connect, they change appearance like chameleons depending on their position in the word. " +
       "Let's start our journey!"
     );
   }, []);
@@ -35,7 +35,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
           </div>
           <div>
             <h3 className="font-bold text-slate-800">28 Letters</h3>
-            <p className="text-sm text-slate-500 leading-snug">The alphabet consists of 28 letters. There are no capital letters in Arabic script!</p>
+            <p className="text-sm text-slate-500 leading-snug">The alphabet consists of 28 letters, all of which represent consonants, though three (Alif, Waw, Ya) can function as long vowels. Short vowels are indicated by diacritical marks (tashkeel) not part of the core alphabet!</p>
           </div>
         </div>
 
@@ -45,7 +45,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
           </div>
           <div>
             <h3 className="font-bold text-slate-800">Right to Left</h3>
-            <p className="text-sm text-slate-500 leading-snug">We read and write from right to left. It feels like drawing as you learn!</p>
+            <p className="text-sm text-slate-500 leading-snug">Arabic is read and written from right to left. This might take some getting used to in the beginning, but it is easy to pick up once you get started!</p>
           </div>
         </div>
 
@@ -54,8 +54,8 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
             <Languages className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-800">Chameleon Shapes</h3>
-            <p className="text-sm text-slate-500 leading-snug">Letters change shape depending on if they are at the start, middle, or end of a word.</p>
+            <h3 className="font-bold text-slate-800">Transforming Shapes</h3>
+            <p className="text-sm text-slate-500 leading-snug">Letters change appearance depending on if they are at the start, middle, or end of a word. The Arabic alphabet is a unicameral script, meaning it has no concept of upper-case (capital) or lower-case (minuscule) letters.</p>
           </div>
         </div>
 
@@ -65,7 +65,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
           </div>
           <div>
             <h3 className="font-bold text-slate-800">Cursive Writing</h3>
-            <p className="text-sm text-slate-500 leading-snug">Arabic is always cursive. Letters connect to each other in a beautiful flow.</p>
+            <p className="text-sm text-slate-500 leading-snug">Arabic is always cursive. Letters connect to each other in a beautiful flowing script.</p>
           </div>
         </div>
       </div>

@@ -4,16 +4,18 @@ import { AppState } from './types';
 import { speechService } from './services/geminiService';
 import { WelcomeScreen } from './components/WelcomeScreen';
 import { ModulesScreen } from './components/ModulesScreen';
+import { LetterSelectionScreen } from './components/LetterSelectionScreen';
 import { TheoryScreen } from './components/TheoryScreen';
 import { LessonScreen } from './components/LessonScreen';
 import { GamePrompt } from './components/GamePrompt';
 import { MiniGame } from './components/MiniGame';
+import { VowelsScreen } from './components/VowelsScreen';
 import { EndScreen } from './components/EndScreen';
 import { XCircle, ChevronLeft } from 'lucide-react';
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.WELCOME);
-  const [batchIndex, setBatchIndex] = useState(0); // 0 = first 5, 1 = next 5
+  const [batchIndex, setBatchIndex] = useState(0); 
   const [testMode, setTestMode] = useState<'current' | 'all'>('current');
 
   const showModules = useCallback(() => {
@@ -23,27 +25,26 @@ const App: React.FC = () => {
 
   const handleModuleSelect = useCallback((moduleId: string) => {
     if (moduleId === 'm1') {
-      setBatchIndex(0);
       setAppState(AppState.THEORY);
     }
   }, []);
 
-  const proceedToLessons = useCallback(() => {
+  const proceedToGroupSelection = useCallback(() => {
+    setAppState(AppState.LETTER_SELECTION);
+  }, []);
+
+  const handleGroupSelect = useCallback((batch: number) => {
+    setBatchIndex(batch);
     setAppState(AppState.LESSON);
+  }, []);
+
+  const handleVowelsSelect = useCallback(() => {
+    setAppState(AppState.VOWELS);
   }, []);
 
   const handleLessonComplete = useCallback(() => {
     setAppState(AppState.MINI_GAME);
   }, []);
-
-  const handleGameComplete = useCallback(() => {
-    if (batchIndex === 0) {
-      setBatchIndex(1);
-      setAppState(AppState.LESSON);
-    } else {
-      setAppState(AppState.END);
-    }
-  }, [batchIndex]);
 
   const handleBatchTwoStart = useCallback((mode: 'current' | 'all') => {
     setTestMode(mode);
@@ -61,14 +62,22 @@ const App: React.FC = () => {
         return <WelcomeScreen onStart={showModules} />;
       case AppState.MODULES:
         return <ModulesScreen onSelectModule={handleModuleSelect} />;
+      case AppState.LETTER_SELECTION:
+        return (
+          <LetterSelectionScreen 
+            onSelectGroup={handleGroupSelect} 
+            onSelectVowels={handleVowelsSelect}
+            onBack={showModules} 
+          />
+        );
       case AppState.THEORY:
-        return <TheoryScreen onContinue={proceedToLessons} onBackToModules={showModules} />;
+        return <TheoryScreen onContinue={proceedToGroupSelection} onBackToModules={showModules} />;
       case AppState.LESSON:
         return (
           <LessonScreen 
             batchIndex={batchIndex} 
             onBackToModules={showModules}
-            onComplete={batchIndex === 1 ? () => setAppState(AppState.GAME_PROMPT) : handleLessonComplete} 
+            onComplete={batchIndex >= 1 ? () => setAppState(AppState.GAME_PROMPT) : handleLessonComplete} 
           />
         );
       case AppState.GAME_PROMPT:
@@ -78,10 +87,12 @@ const App: React.FC = () => {
           <MiniGame 
             batchIndex={batchIndex} 
             testMode={testMode} 
-            onComplete={handleGameComplete} 
+            onExit={proceedToGroupSelection} 
             onBackToModules={showModules}
           />
         );
+      case AppState.VOWELS:
+        return <VowelsScreen onBack={proceedToGroupSelection} />;
       case AppState.END:
         return <EndScreen />;
       default:
@@ -118,9 +129,10 @@ const App: React.FC = () => {
             )}
           </div>
           <div className="text-sm font-medium opacity-80">
-            {appState === AppState.LESSON && `Module: Letters ${batchIndex * 5 + 1}-${(batchIndex + 1) * 5}`}
+            {appState === AppState.LESSON && `Module: Letters ${batchIndex * 7 + 1}-${Math.min((batchIndex + 1) * 7, 28)}`}
             {appState === AppState.MINI_GAME && "Mini Game Time!"}
             {appState === AppState.MODULES && "Choose Your Path"}
+            {appState === AppState.LETTER_SELECTION && "Study Center"}
           </div>
         </header>
         

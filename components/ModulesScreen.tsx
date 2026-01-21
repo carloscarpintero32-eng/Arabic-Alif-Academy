@@ -9,14 +9,14 @@ interface ModulesScreenProps {
 
 export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) => {
   useEffect(() => {
-    speechService.speak("This is the modules selection screen. Each tile represents a step in your journey to learn Arabic. Click on a tile to begin your lesson.");
+    speechService.speak("Welcome to the modules selection screen. Each tile represents a step in your journey to learn Arabic. Module 1 will teach you the beautiful letters of the alphabet.");
   }, []);
 
   const modules = [
     {
       id: 'm1',
       title: 'Module 1: Letters',
-      description: 'Master the first 10 letters of the alphabet including their shapes and sounds.',
+      description: "This module will teach you the letters of the Arabic alphabet, including their unique shapes at the beginning, middle, and end of words.",
       icon: <BookOpen className="w-8 h-8" />,
       color: 'bg-indigo-600',
       active: true
@@ -24,7 +24,7 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
     {
       id: 'm2',
       title: 'Module 2: Vocabulary',
-      description: 'Learn common daily words and basic greetings.',
+      description: 'Learn common daily words, numbers, and basic greetings to start speaking immediately.',
       icon: <Headphones className="w-8 h-8" />,
       color: 'bg-slate-400',
       active: false
@@ -32,7 +32,7 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
     {
       id: 'm3',
       title: 'Module 3: Writing',
-      description: 'Master the art of connecting letters to form words.',
+      description: 'Master the art of connecting letters to form words and sentences in elegant script.',
       icon: <PenTool className="w-8 h-8" />,
       color: 'bg-slate-400',
       active: false
@@ -42,9 +42,9 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
   return (
     <div className="flex flex-col space-y-8 animate-fadeIn h-full">
       <div className="space-y-3">
-        <h2 className="text-4xl font-black text-slate-800 tracking-tight">Modules</h2>
+        <h2 className="text-4xl font-black text-slate-800 tracking-tight">Learning Modules</h2>
         <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
-          Each tile below is a module that will guide you through different steps of learning Arabic. Click a tile to begin your focused study.
+          Your path to mastering Arabic begins here. Click on an active module to start your focused study.
         </p>
       </div>
 
@@ -75,7 +75,7 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
             )}
             {m.active && (
               <div className="mt-4 flex items-center space-x-2 text-indigo-600 font-bold uppercase text-xs tracking-widest">
-                <span>Start Now</span>
+                <span>Start Learning</span>
                 <Layout className="w-4 h-4" />
               </div>
             )}

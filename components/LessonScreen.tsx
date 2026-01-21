@@ -27,13 +27,14 @@ const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
 };
 
 export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComplete, onBackToModules }) => {
-  const letters = ALPHABET_DATA.slice(batchIndex * 5, (batchIndex + 1) * 5);
+  // Use 7 letters per batch to match the 4-group requirement
+  const letters = ALPHABET_DATA.slice(batchIndex * 7, (batchIndex + 1) * 7);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const currentLetter = letters[currentLetterIndex];
 
   const playInstruction = useCallback(async () => {
-    if (isAudioPlaying) return;
+    if (isAudioPlaying || !currentLetter) return;
     
     setIsAudioPlaying(true);
     const text = `Let's learn the letter ${currentLetter.name}. 
@@ -60,14 +61,16 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
     }
   };
 
+  if (!currentLetter) return <div>Loading letter...</div>;
+
   return (
     <div className="flex flex-col h-full animate-fadeIn">
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-slate-800">Learning Letter: {currentLetter.name}</h2>
-          <p className="text-slate-500 italic">Transliteration: / {currentLetter.transliteration} /</p>
+          <h2 className="text-3xl font-bold text-slate-800 tracking-tight">Learning Letter: {currentLetter.name}</h2>
+          <p className="text-slate-500 italic font-medium">Transliteration: / {currentLetter.transliteration} /</p>
         </div>
-        <div className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-bold">
+        <div className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-black">
           {currentLetterIndex + 1} / {letters.length}
         </div>
       </div>
@@ -102,7 +105,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
         ].map((state) => (
           <div key={state.label} className="bg-white border-2 border-indigo-50 rounded-3xl p-6 text-center shadow-sm flex flex-col items-center justify-between min-h-[220px]">
             <div className="flex flex-col items-center">
-              <span className="text-6xl arabic-text text-indigo-600 mb-2">{state.shape}</span>
+              <span className="text-6xl arabic-text text-indigo-600 mb-2 leading-none">{state.shape}</span>
               <span className="text-xs font-bold text-indigo-300 uppercase tracking-widest mb-4">{state.label}</span>
             </div>
             <HighlightedWord example={state.ex} />

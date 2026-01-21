@@ -24,7 +24,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       <div className="space-y-4">
         <h2 className="text-5xl font-black text-slate-800 tracking-tight">Assalamu Alaikum!</h2>
         <p className="text-xl text-slate-500 max-w-lg leading-relaxed font-medium">
-          Step into the world of Arabic. Learn to read and write the alphabet through interactive modules and fun challenges.
+          Step into the world of Arabic. Learn to read and write through interactive modules and fun challenges.
         </p>
       </div>
 
