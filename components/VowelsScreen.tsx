@@ -1,21 +1,13 @@
 
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
+import { Grid, Volume2, Volume1 } from 'lucide-react';
 import { speechService } from '../services/geminiService';
-import { Grid, Volume2, PlayCircle, ArrowRight } from 'lucide-react';
 
 interface VowelsScreenProps {
   onBack: () => void;
 }
 
 export const VowelsScreen: React.FC<VowelsScreenProps> = ({ onBack }) => {
-  useEffect(() => {
-    speechService.speak(
-      "Short vowels in Arabic are called Harakat. They are small marks written above or below letters to tell you how to pronounce them. " +
-      "There are three main vowels: Fatha makes an 'aa' sound, Kasra makes an 'ee' sound, and Damma makes an 'oo' sound. " +
-      "The Sukun means there is no vowel at all!"
-    );
-  }, []);
-
   const vowels = [
     { name: 'Fatha', mark: '◌َ', sound: 'a (as in "apple")', example: 'بَ (ba)', color: 'bg-indigo-50 border-indigo-200 text-indigo-700' },
     { name: 'Kasra', mark: '◌ِ', sound: 'i (as in "ink")', example: 'بِ (bi)', color: 'bg-emerald-50 border-emerald-200 text-emerald-700' },
@@ -23,43 +15,55 @@ export const VowelsScreen: React.FC<VowelsScreenProps> = ({ onBack }) => {
     { name: 'Sukun', mark: '◌ْ', sound: 'Silent (stop)', example: 'بْ (b)', color: 'bg-slate-50 border-slate-200 text-slate-700' },
   ];
 
+  const playVowelExample = useCallback((example: string) => {
+    const arabicPart = example.split(' ')[0];
+    speechService.speak(arabicPart);
+  }, []);
+
   return (
-    <div className="flex flex-col space-y-8 animate-fadeIn h-full">
-      <div className="space-y-2">
-        <h2 className="text-3xl font-black text-slate-800 tracking-tight">Short Vowels (Harakat)</h2>
-        <p className="text-lg text-slate-600">The marks that guide your pronunciation.</p>
+    <div className="flex flex-col space-y-6 animate-fadeIn h-full">
+      <div className="space-y-1">
+        <h2 className="text-3xl font-black text-slate-800 tracking-tight">Vowels</h2>
+        <p className="text-sm text-slate-500 font-bold uppercase tracking-widest">Harakat Marks</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-3">
         {vowels.map((v) => (
-          <div key={v.name} className={`p-6 rounded-3xl border-2 shadow-sm flex items-center justify-between ${v.color}`}>
+          <button 
+            key={v.name} 
+            onClick={() => playVowelExample(v.example)}
+            className={`group p-5 rounded-3xl border-2 shadow-sm flex items-center justify-between text-left transition-all active:scale-95 hover:shadow-md ${v.color}`}
+          >
             <div className="space-y-1">
-              <h3 className="text-2xl font-black">{v.name}</h3>
-              <p className="text-sm font-bold opacity-70 uppercase tracking-widest">{v.sound}</p>
-              <div className="text-xl font-medium mt-2">Example: <span className="arabic-text text-2xl">{v.example}</span></div>
+              <h3 className="text-xl font-black">{v.name}</h3>
+              <p className="text-[10px] font-bold opacity-70 uppercase tracking-widest">{v.sound}</p>
+              <div className="text-lg font-medium mt-1">Example: <span className="arabic-text text-xl">{v.example}</span></div>
             </div>
-            <div className="text-6xl arabic-text bg-white p-4 rounded-2xl shadow-inner border border-inherit">
-              {v.mark}
+            <div className="relative">
+              <div className="text-5xl arabic-text bg-white p-3 rounded-2xl shadow-inner border border-inherit transition-transform group-hover:scale-110">
+                {v.mark}
+              </div>
+              <Volume1 className="absolute -top-1 -right-1 w-4 h-4 text-inherit opacity-40 group-hover:opacity-100" />
             </div>
-          </div>
+          </button>
         ))}
       </div>
 
-      <div className="bg-indigo-600 text-white p-6 rounded-[2rem] flex items-center space-x-6 shadow-xl">
-        <div className="bg-white/20 p-4 rounded-2xl">
-          <Volume2 className="w-10 h-10" />
+      <div className="bg-indigo-600 text-white p-5 rounded-[2rem] flex items-center space-x-4 shadow-lg">
+        <div className="bg-white/20 p-3 rounded-xl shrink-0">
+          <Volume2 className="w-6 h-6" />
         </div>
-        <p className="text-lg font-medium leading-relaxed">
-          In Arabic newspapers and most books, these marks are often omitted! Readers use context to know the correct vowels. But for learners like you, they are your best friends!
+        <p className="text-[11px] font-medium leading-tight">
+          These marks are often omitted in newspapers! Readers use context to know the correct vowels.
         </p>
       </div>
 
-      <div className="mt-auto flex justify-between items-center pt-4">
+      <div className="mt-auto pt-4">
         <button
           onClick={onBack}
-          className="flex items-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 px-6 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition-all"
+          className="w-full flex items-center justify-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 p-4 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all"
         >
-          <Grid className="w-5 h-5" />
+          <Grid className="w-4 h-4" />
           <span>Back to Module 1</span>
         </button>
       </div>

@@ -104,41 +104,49 @@ const App: React.FC = () => {
   const showBackButton = appState !== AppState.WELCOME && appState !== AppState.MODULES && appState !== AppState.END;
 
   return (
-    <div className="max-w-4xl mx-auto min-h-screen flex items-center justify-center p-4">
-      <div className="w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-indigo-100 flex flex-col min-h-[600px]">
-        <header className="bg-indigo-600 text-white p-6 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-0 sm:p-4">
+      {/* Mobile Wrapper: 18:9 Aspect Ratio on desktop, full screen on mobile */}
+      <div className="w-full h-full sm:h-[92vh] sm:aspect-[9/18] sm:max-w-[450px] bg-white sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative border border-slate-800">
+        <header className="bg-indigo-600 text-white p-5 flex justify-between items-center shrink-0">
+          <div className="flex items-center space-x-3">
             {showBackButton && (
               <button 
                 onClick={showModules}
-                className="p-1 hover:bg-indigo-500 rounded-full transition-colors mr-2"
-                title="Back to Modules"
+                className="p-1 hover:bg-indigo-500 rounded-full transition-colors"
+                title="Back"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
             )}
-            <h1 className="text-2xl font-bold tracking-tight">Arabic Alif Academy</h1>
-            {showQuitButton && (
-              <button 
-                onClick={quitGame}
-                className="flex items-center space-x-1 bg-indigo-500 hover:bg-red-500 px-3 py-1 rounded-lg text-xs font-bold transition-colors border border-indigo-400"
-              >
-                <XCircle className="w-3 h-3" />
-                <span>Stop Game</span>
-              </button>
-            )}
+            <h1 className="text-xl font-bold tracking-tight">Alif Academy</h1>
           </div>
-          <div className="text-sm font-medium opacity-80">
-            {appState === AppState.LESSON && `Module: Letters ${batchIndex * 7 + 1}-${Math.min((batchIndex + 1) * 7, 28)}`}
-            {appState === AppState.MINI_GAME && "Mini Game Time!"}
-            {appState === AppState.MODULES && "Choose Your Path"}
-            {appState === AppState.LETTER_SELECTION && "Study Center"}
-          </div>
+          {showQuitButton && (
+            <button 
+              onClick={quitGame}
+              className="p-1 hover:bg-red-500 rounded-lg transition-colors text-white/80"
+            >
+              <XCircle className="w-6 h-6" />
+            </button>
+          )}
         </header>
         
-        <main className="flex-1 p-8 flex flex-col relative">
+        <main className="flex-1 p-5 flex flex-col overflow-y-auto overflow-x-hidden">
           {renderContent()}
         </main>
+        
+        {/* Progress indicator for lessons/games */}
+        {(appState === AppState.LESSON || appState === AppState.MINI_GAME) && (
+          <div className="absolute top-[72px] left-0 w-full h-1 bg-indigo-100">
+             <div 
+               className="h-full bg-indigo-500 transition-all duration-500"
+               style={{ 
+                 width: appState === AppState.LESSON 
+                   ? `${(batchIndex + 1) * 25}%` 
+                   : '100%' 
+               }}
+             />
+          </div>
+        )}
       </div>
     </div>
   );

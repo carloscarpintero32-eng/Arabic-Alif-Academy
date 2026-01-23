@@ -1,86 +1,81 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BookOpen, Headphones, PenTool, Layout, Lock } from 'lucide-react';
-import { speechService } from '../services/geminiService';
 
 interface ModulesScreenProps {
   onSelectModule: (moduleId: string) => void;
 }
 
 export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) => {
-  useEffect(() => {
-    speechService.speak("Welcome to the modules selection screen. Each tile represents a step in your journey to learn Arabic. Module 1 will teach you the beautiful letters of the alphabet.");
-  }, []);
-
   const modules = [
     {
       id: 'm1',
-      title: 'Module 1: Letters',
-      description: "This module will teach you the letters of the Arabic alphabet, including their unique shapes at the beginning, middle, and end of words.",
-      icon: <BookOpen className="w-8 h-8" />,
+      title: 'Alphabet Master',
+      description: "Learn all 28 letters and their shapes.",
+      icon: <BookOpen className="w-6 h-6" />,
       color: 'bg-indigo-600',
       active: true
     },
     {
       id: 'm2',
-      title: 'Module 2: Vocabulary',
-      description: 'Learn common daily words, numbers, and basic greetings to start speaking immediately.',
-      icon: <Headphones className="w-8 h-8" />,
-      color: 'bg-slate-400',
+      title: 'Vocabulary Daily',
+      description: 'Common words and basic greetings.',
+      icon: <Headphones className="w-6 h-6" />,
+      color: 'bg-slate-300',
       active: false
     },
     {
       id: 'm3',
-      title: 'Module 3: Writing',
-      description: 'Master the art of connecting letters to form words and sentences in elegant script.',
-      icon: <PenTool className="w-8 h-8" />,
-      color: 'bg-slate-400',
+      title: 'Writing Lab',
+      description: 'Master connecting letters into words.',
+      icon: <PenTool className="w-6 h-6" />,
+      color: 'bg-slate-300',
       active: false
     }
   ];
 
   return (
-    <div className="flex flex-col space-y-8 animate-fadeIn h-full">
-      <div className="space-y-3">
-        <h2 className="text-4xl font-black text-slate-800 tracking-tight">Learning Modules</h2>
-        <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
-          Your path to mastering Arabic begins here. Click on an active module to start your focused study.
-        </p>
+    <div className="flex flex-col space-y-6 animate-fadeIn h-full">
+      <div className="space-y-1">
+        <h2 className="text-3xl font-black text-slate-800 tracking-tight leading-tight">Your Journey</h2>
+        <p className="text-slate-500 font-medium">Select a training module.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-col space-y-4">
         {modules.map((m) => (
           <button
             key={m.id}
             onClick={() => m.active && onSelectModule(m.id)}
             disabled={!m.active}
-            className={`relative p-8 rounded-[2.5rem] text-left transition-all transform flex flex-col h-full border-b-8 shadow-xl
+            className={`relative p-6 rounded-[2rem] text-left transition-all flex items-start space-x-4 border-b-4 shadow-md
               ${m.active 
-                ? 'bg-white border-indigo-100 hover:border-indigo-400 hover:-translate-y-2 hover:shadow-2xl cursor-pointer' 
-                : 'bg-slate-50 border-slate-200 opacity-80 cursor-not-allowed'
+                ? 'bg-white border-indigo-100 hover:border-indigo-400 active:translate-y-1 cursor-pointer' 
+                : 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
               }`}
           >
-            <div className={`p-4 rounded-2xl inline-block mb-6 text-white ${m.color}`}>
+            <div className={`p-3 rounded-2xl shrink-0 text-white ${m.color}`}>
               {m.icon}
             </div>
-            <h3 className="text-2xl font-black text-slate-800 mb-2">{m.title}</h3>
-            <p className="text-slate-500 font-medium leading-snug flex-grow">
-              {m.description}
-            </p>
-            {!m.active && (
-              <div className="mt-4 flex items-center space-x-2 text-slate-400 font-bold uppercase text-xs tracking-widest">
-                <Lock className="w-4 h-4" />
-                <span>Coming Soon</span>
-              </div>
-            )}
-            {m.active && (
-              <div className="mt-4 flex items-center space-x-2 text-indigo-600 font-bold uppercase text-xs tracking-widest">
-                <span>Start Learning</span>
-                <Layout className="w-4 h-4" />
-              </div>
-            )}
+            <div className="flex-1">
+              <h3 className="text-xl font-black text-slate-800 mb-0.5">{m.title}</h3>
+              <p className="text-sm text-slate-400 font-medium leading-tight">
+                {m.description}
+              </p>
+              {!m.active && (
+                <div className="mt-2 flex items-center space-x-1 text-slate-400 font-bold uppercase text-[10px] tracking-widest">
+                  <Lock className="w-3 h-3" />
+                  <span>Locked</span>
+                </div>
+              )}
+            </div>
           </button>
         ))}
+      </div>
+      
+      <div className="mt-auto bg-indigo-50 p-6 rounded-[2rem] border border-indigo-100">
+        <p className="text-xs text-indigo-700 font-bold leading-relaxed text-center italic">
+          "The beauty of Arabic lies in its script. Take your time with Module 1!"
+        </p>
       </div>
     </div>
   );

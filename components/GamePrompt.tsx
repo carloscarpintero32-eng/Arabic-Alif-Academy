@@ -1,6 +1,5 @@
 
-import React, { useEffect } from 'react';
-import { speechService } from '../services/geminiService';
+import React from 'react';
 import { Grid } from 'lucide-react';
 
 interface GamePromptProps {
@@ -9,10 +8,6 @@ interface GamePromptProps {
 }
 
 export const GamePrompt: React.FC<GamePromptProps> = ({ onSelect, onBackToModules }) => {
-  useEffect(() => {
-    speechService.speak("Well done on completing the second module! Before the next mini-game, would you like to be tested only on the new letters you just learned, or should we mix them with the first five letters for a bigger challenge?");
-  }, []);
-
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn h-full">
       <div className="space-y-4">

@@ -33,6 +33,8 @@ const decodeAudioData = async (
 export class SpeechService {
   private audioContext: AudioContext | null = null;
   private currentSource: AudioBufferSourceNode | null = null;
+  private cache = new Map<string, AudioBuffer>();
+  private inFlightRequests = new Map<string, Promise<AudioBuffer | null>>();
 
   constructor() {
     try {
@@ -56,7 +58,6 @@ export class SpeechService {
         return;
       }
       const utterance = new SpeechSynthesisUtterance(text);
-      // Try to find an Arabic voice if the text contains Arabic characters
       const voices = window.speechSynthesis.getVoices();
       const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
       if (arabicVoice) utterance.voice = arabicVoice;
@@ -67,68 +68,79 @@ export class SpeechService {
     });
   }
 
-  async speak(text: string, retryCount = 0): Promise<void> {
-    const MAX_RETRIES = 2;
+  private async getAudioBuffer(text: string, retryCount = 0): Promise<AudioBuffer | null> {
+    const MAX_RETRIES = 1;
     const INITIAL_BACKOFF = 1000;
 
-    if (!process.env.API_KEY) {
-      console.warn("API Key is missing for TTS");
-      return this.fallbackSpeak(text);
+    if (this.cache.has(text)) {
+      return this.cache.get(text)!;
     }
 
-    if (this.currentSource) {
-      try { this.currentSource.stop(); } catch(e) {}
+    if (this.inFlightRequests.has(text)) {
+      return this.inFlightRequests.get(text)!;
     }
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash-preview-tts",
-        contents: [{ parts: [{ text }] }],
-        config: {
-          responseModalities: [Modality.AUDIO],
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: { voiceName: 'Kore' },
+    const fetchPromise = (async () => {
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      try {
+        const response = await ai.models.generateContent({
+          model: "gemini-2.5-flash-preview-tts",
+          contents: [{ parts: [{ text }] }],
+          config: {
+            responseModalities: [Modality.AUDIO],
+            speechConfig: {
+              voiceConfig: {
+                prebuiltVoiceConfig: { voiceName: 'Kore' },
+              },
             },
           },
-        },
-      });
+        });
 
-      const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-      if (!base64Audio || !this.audioContext) {
-        return this.fallbackSpeak(text);
-      }
+        const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+        if (!base64Audio || !this.audioContext) return null;
 
-      const audioData = decodeBase64(base64Audio);
-      const audioBuffer = await decodeAudioData(audioData, this.audioContext, 24000, 1);
-
-      const source = this.audioContext.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect(this.audioContext.destination);
-      this.currentSource = source;
-      source.start();
-
-      return new Promise((resolve) => {
-        source.onended = () => resolve();
-      });
-    } catch (error: any) {
-      console.error(`TTS generation attempt ${retryCount + 1} failed:`, error);
-      
-      // Handle Quota Exhausted (429) with exponential backoff
-      if (error?.message?.includes('429') || error?.status === 429) {
-        if (retryCount < MAX_RETRIES) {
-          const waitTime = INITIAL_BACKOFF * Math.pow(2, retryCount);
-          console.log(`Quota exceeded. Retrying in ${waitTime}ms...`);
-          await this.sleep(waitTime);
-          return this.speak(text, retryCount + 1);
+        const audioData = decodeBase64(base64Audio);
+        const buffer = await decodeAudioData(audioData, this.audioContext, 24000, 1);
+        this.cache.set(text, buffer);
+        return buffer;
+      } catch (error: any) {
+        if (error?.message?.includes('429') && retryCount < MAX_RETRIES) {
+          await this.sleep(INITIAL_BACKOFF);
+          return this.getAudioBuffer(text, retryCount + 1);
         }
+        console.error("Audio generation failed", error);
+        return null;
+      } finally {
+        this.inFlightRequests.delete(text);
       }
+    })();
 
-      // If retries exhausted or other error, use browser fallback
+    this.inFlightRequests.set(text, fetchPromise);
+    return fetchPromise;
+  }
+
+  async speak(text: string): Promise<void> {
+    if (!process.env.API_KEY) {
       return this.fallbackSpeak(text);
     }
+
+    this.stop();
+
+    const audioBuffer = await this.getAudioBuffer(text);
+    
+    if (!audioBuffer || !this.audioContext) {
+      return this.fallbackSpeak(text);
+    }
+
+    const source = this.audioContext.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(this.audioContext.destination);
+    this.currentSource = source;
+    source.start();
+
+    return new Promise((resolve) => {
+      source.onended = () => resolve();
+    });
   }
 
   stop() {

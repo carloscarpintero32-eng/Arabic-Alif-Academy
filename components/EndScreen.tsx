@@ -1,13 +1,8 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Trophy, PartyPopper, RefreshCw, Star } from 'lucide-react';
-import { speechService } from '../services/geminiService';
 
 export const EndScreen: React.FC = () => {
-  useEffect(() => {
-    speechService.speak("Congratulations Carlos! You have completed all the modules currently available. This is the end of the game so far.");
-  }, []);
-
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-10 animate-fadeIn h-full py-12 px-6">
       <div className="relative scale-125 mb-4">
@@ -20,14 +15,14 @@ export const EndScreen: React.FC = () => {
       <div className="space-y-4">
         <h2 className="text-6xl font-black text-slate-800 tracking-tighter">Alf Mabrouk!</h2>
         <div className="bg-indigo-600 text-white px-6 py-2 rounded-full inline-block font-black text-xl uppercase tracking-widest animate-fadeIn delay-500">
-          This is the end of the game so far Carlos
+          This is the end of the game so far
         </div>
       </div>
       
       <div className="bg-white p-8 rounded-[3rem] border-2 border-indigo-100 max-w-lg shadow-xl relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
         <p className="text-xl text-slate-600 leading-relaxed font-medium">
-          "Carlos, you've shown incredible focus. Learning the first 10 letters and all their complex shapes is a huge achievement. You are now ready to start forming your first words!"
+          "You've shown incredible focus. Learning the first 10 letters and all their complex shapes is a huge achievement. You are now ready to start forming your first words!"
         </p>
       </div>
 

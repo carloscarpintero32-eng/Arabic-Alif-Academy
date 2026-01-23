@@ -15,6 +15,9 @@ export interface ArabicLetter {
   final: string;
   transliteration: string;
   description: string;
+  soundDescription: string;
+  englishComparison: string;
+  mouthTips: string;
   examples: {
     isolated: Example;
     initial: Example;

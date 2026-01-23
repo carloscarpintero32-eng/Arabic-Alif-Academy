@@ -1,40 +1,35 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BookOpen, Sparkles } from 'lucide-react';
-import { speechService } from '../services/geminiService';
 
 interface WelcomeScreenProps {
   onStart: () => void;
 }
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
-  useEffect(() => {
-    speechService.speak("Welcome to Arabic Alif Academy! Our goal is to help you master the beautiful Arabic alphabet one letter at a time. Click Let's Start to begin your journey.");
-  }, []);
-
   return (
-    <div className="flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn py-12">
+    <div className="flex flex-col items-center justify-center text-center space-y-6 animate-fadeIn h-full py-4">
       <div className="relative">
-        <div className="w-32 h-32 bg-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-2xl animate-bounce duration-[3000ms] ease-in-out infinite">
-          <span className="text-6xl arabic-text text-white">أ</span>
+        <div className="w-24 h-24 bg-indigo-600 rounded-full flex items-center justify-center mb-2 shadow-xl animate-bounce duration-[3000ms]">
+          <span className="text-5xl arabic-text text-white">أ</span>
         </div>
-        <Sparkles className="absolute -top-4 -right-4 text-amber-400 w-10 h-10 animate-pulse" />
+        <Sparkles className="absolute -top-3 -right-3 text-amber-400 w-8 h-8 animate-pulse" />
       </div>
       
-      <div className="space-y-4">
-        <h2 className="text-5xl font-black text-slate-800 tracking-tight">Assalamu Alaikum!</h2>
-        <p className="text-xl text-slate-500 max-w-lg leading-relaxed font-medium">
-          Step into the world of Arabic. Learn to read and write through interactive modules and fun challenges.
+      <div className="space-y-2">
+        <h2 className="text-4xl font-black text-slate-800 tracking-tight leading-tight">Assalamu Alaikum!</h2>
+        <p className="text-md text-slate-500 font-medium leading-relaxed px-4">
+          Master the beautiful Arabic script through guided lessons and games.
         </p>
       </div>
 
-      <div className="pt-6">
+      <div className="pt-4 w-full">
         <button
           onClick={onStart}
-          className="group relative flex items-center space-x-3 bg-indigo-600 hover:bg-indigo-700 text-white px-12 py-5 rounded-2xl text-2xl font-black transition-all transform hover:scale-105 active:scale-95 shadow-[0_10px_0_0_rgba(49,46,129,1)] hover:shadow-[0_5px_0_0_rgba(49,46,129,1)] hover:translate-y-[5px]"
+          className="group w-full relative flex items-center justify-center space-x-3 bg-indigo-600 text-white p-6 rounded-[2rem] text-xl font-black transition-all shadow-lg active:translate-y-1"
         >
-          <BookOpen className="w-7 h-7" />
-          <span>Let's Start to Learn</span>
+          <BookOpen className="w-6 h-6" />
+          <span>Enter Academy</span>
         </button>
       </div>
     </div>

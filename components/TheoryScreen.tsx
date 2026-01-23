@@ -1,6 +1,5 @@
 
-import React, { useEffect } from 'react';
-import { speechService } from '../services/geminiService';
+import React from 'react';
 import { ArrowRight, Info, Languages, PenTool, Layout, Grid } from 'lucide-react';
 
 interface TheoryScreenProps {
@@ -9,16 +8,6 @@ interface TheoryScreenProps {
 }
 
 export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackToModules }) => {
-  useEffect(() => {
-    speechService.speak(
-      "Welcome to the fascinating world of Arabic! Did you know there are 28 letters in the Arabic alphabet? " +
-      "Unlike English, we write from right to left, and there are no capital letters! " +
-      "The coolest part? Arabic is always written in a beautiful cursive style. " +
-      "Because letters connect, they change appearance like chameleons depending on their position in the word. " +
-      "Let's start our journey!"
-    );
-  }, []);
-
   return (
     <div className="flex flex-col space-y-8 animate-fadeIn h-full pb-4">
       <div className="space-y-2">
@@ -55,7 +44,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
           </div>
           <div>
             <h3 className="font-bold text-slate-800">Transforming Shapes</h3>
-            <p className="text-sm text-slate-500 leading-snug">Letters change appearance depending on if they are at the start, middle, or end of a word. The Arabic alphabet is a unicameral script, meaning it has no concept of upper-case (capital) or lower-case (minuscule) letters.</p>
+            <p className="text-sm text-slate-500 leading-snug">Letters change appearance depending on whether they are at the start, middle, or end of a word. The Arabic alphabet is a unicameral script, meaning it has no concept of upper-case (capital) or lower-case (minuscule) letters.</p>
           </div>
         </div>
 
