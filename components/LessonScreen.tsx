@@ -36,14 +36,20 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
     if (isAudioPlaying || !currentLetter) return;
     
     setIsAudioPlaying(true);
+    // Sanitize instruction text to remove connection bars for cleaner TTS
+    const cleanIsolated = currentLetter.isolated.replace(/ـ/g, '');
+    const cleanInitial = currentLetter.initial.replace(/ـ/g, '');
+    const cleanMedial = currentLetter.medial.replace(/ـ/g, '');
+    const cleanFinal = currentLetter.final.replace(/ـ/g, '');
+
     const text = `The letter ${currentLetter.name}. 
       It makes a ${currentLetter.soundDescription} sound. 
       It is ${currentLetter.englishComparison}. 
       Tip: ${currentLetter.mouthTips}. 
-      Isolated: ${currentLetter.isolated}. 
-      Initial: ${currentLetter.initial}. 
-      Medial: ${currentLetter.medial}. 
-      Final: ${currentLetter.final}.`;
+      Isolated: ${cleanIsolated}. 
+      Initial: ${cleanInitial}. 
+      Medial: ${cleanMedial}. 
+      Final: ${cleanFinal}.`;
     
     try {
       await speechService.speak(text);
@@ -53,8 +59,10 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
   }, [currentLetter, isAudioPlaying]);
 
   const playWord = useCallback(async (example: Example) => {
-    const word = `${example.prefix}${example.letter}${example.suffix}`;
-    await speechService.speak(word);
+    // Combine parts and strip the connection character (ـ) so the TTS gets a clean word
+    const rawWord = `${example.prefix}${example.letter}${example.suffix}`;
+    const cleanWord = rawWord.replace(/ـ/g, '');
+    await speechService.speak(cleanWord);
   }, []);
 
   const handleNext = () => {
