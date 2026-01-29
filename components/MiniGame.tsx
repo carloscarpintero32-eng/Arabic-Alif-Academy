@@ -3,6 +3,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { ALPHABET_DATA } from '../constants';
 import { ArabicLetter, LetterPosition } from '../types';
 import { speechService } from '../services/geminiService';
+import { useSounds } from '../hooks/useSounds';
 import { AlertCircle, Grid as GridIcon, CheckCircle2, RotateCcw, LogOut, Trophy, XCircle, ArrowRight, Volume1 } from 'lucide-react';
 
 interface MiniGameProps {
@@ -24,13 +25,14 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
   const [userGuessId, setUserGuessId] = useState<number | null>(null);
   const [isRoundResolved, setIsRoundResolved] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-  
+  const { playCorrect, playIncorrect, playCelebration, playClick, playNavigation } = useSounds();
+
   const pool = useMemo(() => {
     const currentBatchStart = batchIndex * 7;
     const currentBatchEnd = (batchIndex + 1) * 7;
     if (batchIndex === 0) return ALPHABET_DATA.slice(0, 7);
-    return testMode === 'current' 
-      ? ALPHABET_DATA.slice(currentBatchStart, currentBatchEnd) 
+    return testMode === 'current'
+      ? ALPHABET_DATA.slice(currentBatchStart, currentBatchEnd)
       : ALPHABET_DATA.slice(0, currentBatchEnd);
   }, [batchIndex, testMode]);
 
@@ -52,7 +54,14 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
     if (isRoundResolved) return;
     setUserGuessId(letter.id);
     setIsRoundResolved(true);
-    if (letter.id === question.targetLetter.id) setScore(prev => prev + 1);
+
+    const isCorrect = letter.id === question.targetLetter.id;
+    if (isCorrect) {
+      setScore(prev => prev + 1);
+      playCorrect();
+    } else {
+      playIncorrect();
+    }
   };
 
   const playTargetWord = useCallback(() => {
@@ -62,6 +71,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
   }, [question]);
 
   const handleNext = () => {
+    playClick();
     if (currentRound < 9) {
       setCurrentRound(prev => prev + 1);
       setQuestion(generateQuestion());
@@ -69,16 +79,23 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
       setIsRoundResolved(false);
     } else {
       setIsFinished(true);
+      playCelebration();
     }
   };
 
   const handlePlayAgain = () => {
+    playClick();
     setCurrentRound(0);
     setScore(0);
     setUserGuessId(null);
     setIsRoundResolved(false);
     setIsFinished(false);
     setQuestion(generateQuestion());
+  };
+
+  const handleExitWithSound = () => {
+    playNavigation();
+    onExit();
   };
 
   if (isFinished) {
@@ -105,7 +122,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
             <span>Try Again</span>
           </button>
           <button
-            onClick={onExit}
+            onClick={handleExitWithSound}
             className="flex items-center justify-center space-x-3 bg-white border-2 border-slate-200 text-slate-600 p-4 rounded-2xl font-bold"
           >
             <LogOut className="w-5 h-5" />
@@ -130,7 +147,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
       </div>
 
       <div className="relative mb-8">
-        <button 
+        <button
           onClick={playTargetWord}
           className={`bg-white border-4 ${isRoundResolved ? (isCorrect ? 'border-green-500' : 'border-red-500') : 'border-indigo-600'} w-40 h-40 rounded-[2.5rem] flex items-center justify-center shadow-lg transition-all duration-300 active:scale-95 group relative`}
         >
@@ -150,10 +167,10 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
       </div>
 
       <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest mb-4 text-center">
-        Identify the letter<br/>
+        Identify the letter<br />
         <span className="text-[8px] text-slate-400 font-medium tracking-normal">(Tap tile to hear sample word)</span>
       </p>
-      
+
       <div className="grid grid-cols-2 gap-3 w-full mb-6">
         {question.options.map((letter) => {
           const isSelected = userGuessId === letter.id;

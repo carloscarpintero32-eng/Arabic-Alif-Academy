@@ -34,7 +34,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
 
   const playInstruction = useCallback(async () => {
     if (isAudioPlaying || !currentLetter) return;
-    
+
     setIsAudioPlaying(true);
     // Sanitize instruction text to remove connection bars for cleaner TTS
     const cleanIsolated = currentLetter.isolated.replace(/ـ/g, '');
@@ -43,14 +43,13 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
     const cleanFinal = currentLetter.final.replace(/ـ/g, '');
 
     const text = `The letter ${currentLetter.name}. 
-      It makes a ${currentLetter.soundDescription} sound. 
-      It is ${currentLetter.englishComparison}. 
+      ${currentLetter.englishComparison} 
       Tip: ${currentLetter.mouthTips}. 
       Isolated: ${cleanIsolated}. 
       Initial: ${cleanInitial}. 
       Medial: ${cleanMedial}. 
       Final: ${cleanFinal}.`;
-    
+
     try {
       await speechService.speak(text);
     } finally {
@@ -92,11 +91,10 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
       <button
         onClick={() => playInstruction()}
         disabled={isAudioPlaying}
-        className={`w-full mb-6 flex items-center justify-center space-x-3 p-4 rounded-2xl border-2 transition-all transform active:scale-95 shadow-sm ${
-          isAudioPlaying 
-            ? 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed' 
-            : 'bg-indigo-50 border-indigo-200 text-indigo-600 hover:bg-indigo-100'
-        }`}
+        className={`w-full mb-6 flex items-center justify-center space-x-3 p-4 rounded-2xl border-2 transition-all transform active:scale-95 shadow-sm ${isAudioPlaying
+          ? 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed'
+          : 'bg-indigo-50 border-indigo-200 text-indigo-600 hover:bg-indigo-100'
+          }`}
       >
         {isAudioPlaying ? (
           <Volume2 className="w-6 h-6 animate-pulse" />
@@ -116,13 +114,13 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
           { label: 'Medial', shape: currentLetter.medial, ex: currentLetter.examples.medial },
           { label: 'Final', shape: currentLetter.final, ex: currentLetter.examples.final },
         ].map((state) => (
-          <button 
-            key={state.label} 
+          <button
+            key={state.label}
             onClick={() => playWord(state.ex)}
             className="group relative bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm flex flex-col items-center justify-between min-h-[140px] transition-all hover:border-indigo-300 hover:shadow-md active:scale-95"
           >
             <div className="absolute top-2 right-2 opacity-50 group-hover:opacity-100 transition-opacity">
-               <Volume1 className="w-4 h-4 text-indigo-400" />
+              <Volume1 className="w-4 h-4 text-indigo-400" />
             </div>
             <div className="flex flex-col items-center">
               <span className="text-5xl arabic-text text-indigo-600 mb-1 leading-none group-hover:scale-110 transition-transform">{state.shape}</span>
@@ -136,7 +134,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
       <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6">
         <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Teacher's Note</h4>
         <p className="text-xs text-slate-600 leading-tight">
-          {currentLetter.soundDescription} {currentLetter.mouthTips}
+          {currentLetter.englishComparison} {currentLetter.mouthTips}
         </p>
       </div>
 
@@ -148,7 +146,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
           <span>{currentLetterIndex === letters.length - 1 ? 'Start Practice' : 'Next Letter'}</span>
           <ArrowRight className="w-5 h-5" />
         </button>
-        
+
         <button
           onClick={onBackToModules}
           className="w-full flex items-center justify-center space-x-2 bg-white border border-slate-200 text-slate-400 p-3 rounded-xl text-xs font-bold hover:bg-slate-50 transition-all"
