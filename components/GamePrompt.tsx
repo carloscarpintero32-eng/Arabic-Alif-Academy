@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Grid } from 'lucide-react';
+import { useSounds } from '../hooks/useSounds';
 
 interface GamePromptProps {
   onSelect: (mode: 'current' | 'all') => void;
@@ -8,6 +9,18 @@ interface GamePromptProps {
 }
 
 export const GamePrompt: React.FC<GamePromptProps> = ({ onSelect, onBackToModules }) => {
+  const { playSelect, playNavigation } = useSounds();
+
+  const handleModeSelect = (mode: 'current' | 'all') => {
+    playSelect();
+    onSelect(mode);
+  };
+
+  const handleBack = () => {
+    playNavigation();
+    onBackToModules();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn h-full">
       <div className="space-y-4">
@@ -19,7 +32,7 @@ export const GamePrompt: React.FC<GamePromptProps> = ({ onSelect, onBackToModule
 
       <div className="flex flex-col md:flex-row gap-6 w-full max-w-2xl">
         <button
-          onClick={() => onSelect('current')}
+          onClick={() => handleModeSelect('current')}
           className="flex-1 bg-white border-2 border-indigo-200 p-8 rounded-3xl hover:border-indigo-600 hover:bg-indigo-50 transition-all group shadow-sm hover:shadow-md"
         >
           <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-indigo-700">Recent 5 Letters</h3>
@@ -27,7 +40,7 @@ export const GamePrompt: React.FC<GamePromptProps> = ({ onSelect, onBackToModule
         </button>
 
         <button
-          onClick={() => onSelect('all')}
+          onClick={() => handleModeSelect('all')}
           className="flex-1 bg-white border-2 border-indigo-200 p-8 rounded-3xl hover:border-indigo-600 hover:bg-indigo-50 transition-all group shadow-sm hover:shadow-md"
         >
           <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-indigo-700">Mix All 10</h3>
@@ -37,7 +50,7 @@ export const GamePrompt: React.FC<GamePromptProps> = ({ onSelect, onBackToModule
 
       <div className="pt-8">
         <button
-          onClick={onBackToModules}
+          onClick={handleBack}
           className="flex items-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 px-6 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition-all"
         >
           <Grid className="w-5 h-5" />

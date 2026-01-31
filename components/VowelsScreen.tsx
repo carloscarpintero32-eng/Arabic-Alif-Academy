@@ -2,12 +2,20 @@
 import React, { useCallback } from 'react';
 import { Grid, Volume2, Volume1 } from 'lucide-react';
 import { speechService } from '../services/geminiService';
+import { useSounds } from '../hooks/useSounds';
 
 interface VowelsScreenProps {
   onBack: () => void;
 }
 
 export const VowelsScreen: React.FC<VowelsScreenProps> = ({ onBack }) => {
+  const { playNavigation } = useSounds();
+
+  const handleBack = () => {
+    playNavigation();
+    onBack();
+  };
+
   const vowels = [
     { name: 'Fatha', mark: '◌َ', sound: 'a (as in "apple")', example: 'بَ (ba)', color: 'bg-indigo-50 border-indigo-200 text-indigo-700' },
     { name: 'Kasra', mark: '◌ِ', sound: 'i (as in "ink")', example: 'بِ (bi)', color: 'bg-emerald-50 border-emerald-200 text-emerald-700' },
@@ -29,8 +37,8 @@ export const VowelsScreen: React.FC<VowelsScreenProps> = ({ onBack }) => {
 
       <div className="grid grid-cols-1 gap-3">
         {vowels.map((v) => (
-          <button 
-            key={v.name} 
+          <button
+            key={v.name}
             onClick={() => playVowelExample(v.example)}
             className={`group p-5 rounded-3xl border-2 shadow-sm flex items-center justify-between text-left transition-all active:scale-95 hover:shadow-md ${v.color}`}
           >
@@ -60,7 +68,7 @@ export const VowelsScreen: React.FC<VowelsScreenProps> = ({ onBack }) => {
 
       <div className="mt-auto pt-4">
         <button
-          onClick={onBack}
+          onClick={handleBack}
           className="w-full flex items-center justify-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 p-4 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all"
         >
           <Grid className="w-4 h-4" />

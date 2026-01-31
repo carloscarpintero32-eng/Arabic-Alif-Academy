@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ArrowRight, Info, Languages, PenTool, Layout, Grid } from 'lucide-react';
+import { useSounds } from '../hooks/useSounds';
 
 interface TheoryScreenProps {
   onContinue: () => void;
@@ -8,6 +9,18 @@ interface TheoryScreenProps {
 }
 
 export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackToModules }) => {
+  const { playClick, playNavigation } = useSounds();
+
+  const handleContinue = () => {
+    playClick();
+    onContinue();
+  };
+
+  const handleBack = () => {
+    playNavigation();
+    onBackToModules();
+  };
+
   return (
     <div className="flex flex-col space-y-8 animate-fadeIn h-full pb-4">
       <div className="space-y-2">
@@ -61,7 +74,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
 
       <div className="mt-auto flex justify-between items-center">
         <button
-          onClick={onBackToModules}
+          onClick={handleBack}
           className="flex items-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 px-6 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition-all"
         >
           <Grid className="w-5 h-5" />
@@ -69,7 +82,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
         </button>
 
         <button
-          onClick={onContinue}
+          onClick={handleContinue}
           className="flex items-center space-x-2 bg-indigo-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-indigo-700 transition-all shadow-md transform hover:scale-105 active:scale-95"
         >
           <span>Begin First Lesson</span>

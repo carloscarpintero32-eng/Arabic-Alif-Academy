@@ -1,12 +1,22 @@
 
 import React from 'react';
 import { BookOpen, Headphones, PenTool, Layout, Lock } from 'lucide-react';
+import { useSounds } from '../hooks/useSounds';
 
 interface ModulesScreenProps {
   onSelectModule: (moduleId: string) => void;
 }
 
 export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) => {
+  const { playSelect } = useSounds();
+
+  const handleModuleClick = (moduleId: string, isActive: boolean) => {
+    if (isActive) {
+      playSelect();
+      onSelectModule(moduleId);
+    }
+  };
+
   const modules = [
     {
       id: 'm1',
@@ -45,11 +55,11 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
         {modules.map((m) => (
           <button
             key={m.id}
-            onClick={() => m.active && onSelectModule(m.id)}
+            onClick={() => handleModuleClick(m.id, m.active)}
             disabled={!m.active}
             className={`relative p-6 rounded-[2rem] text-left transition-all flex items-start space-x-4 border-b-4 shadow-md
-              ${m.active 
-                ? 'bg-white border-indigo-100 hover:border-indigo-400 active:translate-y-1 cursor-pointer' 
+              ${m.active
+                ? 'bg-white border-indigo-100 hover:border-indigo-400 active:translate-y-1 cursor-pointer'
                 : 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
               }`}
           >
@@ -71,7 +81,7 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
           </button>
         ))}
       </div>
-      
+
       <div className="mt-auto bg-indigo-50 p-6 rounded-[2rem] border border-indigo-100">
         <p className="text-xs text-indigo-700 font-bold leading-relaxed text-center italic">
           "The beauty of Arabic lies in its script. Take your time with Module 1!"

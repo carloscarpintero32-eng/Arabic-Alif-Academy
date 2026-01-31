@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { ALPHABET_DATA } from '../constants';
 import { speechService } from '../services/geminiService';
+import { useSounds } from '../hooks/useSounds';
 import { ArrowRight, PlayCircle, Volume2, Grid as GridIcon, Volume1 } from 'lucide-react';
 import { Example } from '../types';
 
@@ -31,6 +32,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const currentLetter = letters[currentLetterIndex];
+  const { playClick, playNavigation } = useSounds();
 
   const playInstruction = useCallback(async () => {
     if (isAudioPlaying || !currentLetter) return;
@@ -65,6 +67,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
   }, []);
 
   const handleNext = () => {
+    playClick();
     speechService.stop();
     setIsAudioPlaying(false);
     if (currentLetterIndex < letters.length - 1) {
@@ -72,6 +75,11 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
     } else {
       onComplete();
     }
+  };
+
+  const handleBack = () => {
+    playNavigation();
+    onBackToModules();
   };
 
   if (!currentLetter) return <div className="p-10 text-center">Loading...</div>;

@@ -1,8 +1,16 @@
 
 import React from 'react';
 import { Trophy, PartyPopper, RefreshCw, Star } from 'lucide-react';
+import { useSounds } from '../hooks/useSounds';
 
 export const EndScreen: React.FC = () => {
+  const { playClick } = useSounds();
+
+  const handlePlayAgain = () => {
+    playClick();
+    window.location.reload();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-10 animate-fadeIn h-full py-12 px-6">
       <div className="relative scale-125 mb-4">
@@ -11,14 +19,14 @@ export const EndScreen: React.FC = () => {
         <Star className="absolute -bottom-2 -right-2 text-amber-400 w-10 h-10 animate-spin-reverse duration-[4000ms]" />
         <PartyPopper className="w-12 h-12 text-indigo-600 absolute -top-6 -right-6 animate-bounce" />
       </div>
-      
+
       <div className="space-y-4">
         <h2 className="text-6xl font-black text-slate-800 tracking-tighter">Alf Mabrouk!</h2>
         <div className="bg-indigo-600 text-white px-6 py-2 rounded-full inline-block font-black text-xl uppercase tracking-widest animate-fadeIn delay-500">
           This is the end of the game so far
         </div>
       </div>
-      
+
       <div className="bg-white p-8 rounded-[3rem] border-2 border-indigo-100 max-w-lg shadow-xl relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
         <p className="text-xl text-slate-600 leading-relaxed font-medium">
@@ -27,7 +35,7 @@ export const EndScreen: React.FC = () => {
       </div>
 
       <div className="flex flex-col items-center space-y-4">
-        <button 
+        <button
           onClick={() => window.location.reload()}
           className="group flex items-center space-x-3 bg-indigo-600 text-white px-10 py-4 rounded-2xl text-xl font-black hover:bg-indigo-700 transition-all shadow-xl transform hover:scale-105 active:scale-95"
         >

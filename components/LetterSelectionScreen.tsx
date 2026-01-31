@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ChevronRight, Grid as GridIcon, Zap } from 'lucide-react';
+import { useSounds } from '../hooks/useSounds';
 
 interface LetterSelectionScreenProps {
   onSelectGroup: (batch: number) => void;
@@ -9,6 +10,23 @@ interface LetterSelectionScreenProps {
 }
 
 export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ onSelectGroup, onSelectVowels, onBack }) => {
+  const { playSelect, playNavigation } = useSounds();
+
+  const handleGroupSelect = (batch: number) => {
+    playSelect();
+    onSelectGroup(batch);
+  };
+
+  const handleVowelsSelect = () => {
+    playSelect();
+    onSelectVowels();
+  };
+
+  const handleBack = () => {
+    playNavigation();
+    onBack();
+  };
+
   const groups = [
     {
       id: 0,
@@ -47,7 +65,7 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
         {groups.map((group) => (
           <button
             key={group.id}
-            onClick={() => onSelectGroup(group.id)}
+            onClick={() => handleGroupSelect(group.id)}
             className={`group p-5 rounded-2xl border-2 transition-all transform flex items-center justify-between shadow-sm active:translate-y-1 ${group.color}`}
           >
             <div>
@@ -61,7 +79,7 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
         ))}
 
         <button
-          onClick={onSelectVowels}
+          onClick={handleVowelsSelect}
           className="group p-5 rounded-2xl border-2 border-purple-100 hover:border-purple-500 bg-purple-50/20 transition-all transform flex items-center justify-between shadow-sm active:translate-y-1"
         >
           <div>
@@ -76,7 +94,7 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
 
       <div className="mt-auto pt-4 flex justify-center">
         <button
-          onClick={onBack}
+          onClick={handleBack}
           className="flex items-center space-x-2 bg-slate-100 text-slate-500 px-8 py-3 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
         >
           <GridIcon className="w-4 h-4" />
