@@ -30,7 +30,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="flex flex-col space-y-4">
         <div className="bg-white p-5 rounded-2xl border-2 border-indigo-50 shadow-sm flex items-start space-x-4">
           <div className="bg-indigo-100 p-3 rounded-xl text-indigo-600">
             <Info className="w-6 h-6" />
