@@ -31,6 +31,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
   const letters = ALPHABET_DATA.slice(batchIndex * 7, (batchIndex + 1) * 7);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [audioError, setAudioError] = useState(false);
   const currentLetter = letters[currentLetterIndex];
   const { playClick, playNavigation } = useSounds();
 
@@ -38,23 +39,31 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
     if (isAudioPlaying || !currentLetter) return;
 
     setIsAudioPlaying(true);
-    // Sanitize instruction text to remove connection bars for cleaner TTS
-    const cleanIsolated = currentLetter.isolated.replace(/ـ/g, '');
-    const cleanInitial = currentLetter.initial.replace(/ـ/g, '');
-    const cleanMedial = currentLetter.medial.replace(/ـ/g, '');
-    const cleanFinal = currentLetter.final.replace(/ـ/g, '');
+    setAudioError(false);
 
-    const text = `The letter ${currentLetter.name}. 
-      ${currentLetter.englishComparison} 
-      Tip: ${currentLetter.mouthTips}. 
-      Isolated: ${cleanIsolated}. 
-      Initial: ${cleanInitial}. 
-      Medial: ${cleanMedial}. 
-      Final: ${cleanFinal}.`;
+    // Audio file path format: /lessons/letter-{id}.wav
+    // Example: /lessons/letter-1.wav for Alif (أ)
+    const audioPath = `/lessons/letter-${currentLetter.id}.wav`;
 
     try {
-      await speechService.speak(text);
-    } finally {
+      const audio = new Audio(audioPath);
+
+      // Handle successful playback
+      audio.addEventListener('ended', () => {
+        setIsAudioPlaying(false);
+      });
+
+      // Handle errors (file not found, etc.)
+      audio.addEventListener('error', () => {
+        console.warn(`Audio file not found: ${audioPath}`);
+        setAudioError(true);
+        setIsAudioPlaying(false);
+      });
+
+      await audio.play();
+    } catch (error) {
+      console.warn(`Failed to play audio for letter ${currentLetter.name}:`, error);
+      setAudioError(true);
       setIsAudioPlaying(false);
     }
   }, [currentLetter, isAudioPlaying]);
@@ -68,8 +77,10 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
 
   const handleNext = () => {
     playClick();
-    speechService.stop();
+    // Stop any currently playing audio
     setIsAudioPlaying(false);
+    setAudioError(false);
+
     if (currentLetterIndex < letters.length - 1) {
       setCurrentLetterIndex(currentLetterIndex + 1);
     } else {
