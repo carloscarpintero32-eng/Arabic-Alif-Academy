@@ -86,7 +86,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     examples: {
       isolated: { prefix: 'ور', letter: 'د', suffix: '', translation: 'Rose' },
       initial: { prefix: '', letter: 'د', suffix: 'يك', translation: 'Rooster' },
-      medial: { prefix: 'هـ', letter: 'ـد', suffix: 'هـد', translation: 'Hoopoe' },
+      medial: { prefix: 'بـ', letter: 'ـد', suffix: 'ر', translation: 'Moon' },
       final: { prefix: 'ولـ', letter: 'ـد', suffix: '', translation: 'Boy' }
     }
   },

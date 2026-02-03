@@ -68,12 +68,23 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
     }
   }, [currentLetter, isAudioPlaying]);
 
-  const playWord = useCallback(async (example: Example) => {
-    // Combine parts and strip the connection character (ـ) so the TTS gets a clean word
-    const rawWord = `${example.prefix}${example.letter}${example.suffix}`;
-    const cleanWord = rawWord.replace(/ـ/g, '');
-    await speechService.speak(cleanWord);
-  }, []);
+  const playWord = useCallback(async (example: Example, position: string) => {
+    // Audio file path format: /words/letter-{id}-{position}.wav
+    // Example: /words/letter-1-isolated.wav for Alif isolated (Rabbit أرنب)
+    const audioPath = `/words/letter-${currentLetter.id}-${position}.wav`;
+
+    try {
+      const audio = new Audio(audioPath);
+
+      audio.addEventListener('error', () => {
+        console.warn(`Word audio file not found: ${audioPath}`);
+      });
+
+      await audio.play();
+    } catch (error) {
+      console.warn(`Failed to play word audio for ${example.translation}:`, error);
+    }
+  }, [currentLetter]);
 
   const handleNext = () => {
     playClick();
@@ -128,14 +139,14 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
       {/* Shapes Grid - 2x2 for mobile aspect */}
       <div className="grid grid-cols-2 gap-3 mb-6">
         {[
-          { label: 'Isolated', shape: currentLetter.isolated, ex: currentLetter.examples.isolated },
-          { label: 'Initial', shape: currentLetter.initial, ex: currentLetter.examples.initial },
-          { label: 'Medial', shape: currentLetter.medial, ex: currentLetter.examples.medial },
-          { label: 'Final', shape: currentLetter.final, ex: currentLetter.examples.final },
+          { label: 'Isolated', shape: currentLetter.isolated, ex: currentLetter.examples.isolated, position: 'isolated' },
+          { label: 'Initial', shape: currentLetter.initial, ex: currentLetter.examples.initial, position: 'initial' },
+          { label: 'Medial', shape: currentLetter.medial, ex: currentLetter.examples.medial, position: 'medial' },
+          { label: 'Final', shape: currentLetter.final, ex: currentLetter.examples.final, position: 'final' },
         ].map((state) => (
           <button
             key={state.label}
-            onClick={() => playWord(state.ex)}
+            onClick={() => playWord(state.ex, state.position)}
             className="group relative bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm flex flex-col items-center justify-between min-h-[140px] transition-all hover:border-indigo-300 hover:shadow-md active:scale-95"
           >
             <div className="absolute top-2 right-2 opacity-50 group-hover:opacity-100 transition-opacity">
