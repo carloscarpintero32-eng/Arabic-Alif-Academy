@@ -18,9 +18,9 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     englishComparison: 'Exactly like the English "B" in "boat".',
     mouthTips: 'Press your lips together and release them quickly.',
     examples: {
-      isolated: { prefix: 'با', letter: 'ب', suffix: '', translation: 'Door' },
-      initial: { prefix: '', letter: 'بـ', suffix: 'نت', translation: 'Girl' },
-      medial: { prefix: 'خـ', letter: 'ـبـ', suffix: 'ز', translation: 'Bread' },
+      isolated: { prefix: '', letter: 'ب', suffix: 'رتقال', translation: 'Orange' },
+      initial: { prefix: '', letter: 'بـ', suffix: 'طة', translation: 'Duck' },
+      medial: { prefix: 'سـ', letter: 'ـبـ', suffix: 'ع', translation: 'Seven' },
       final: { prefix: 'كلـ', letter: 'ـب', suffix: '', translation: 'Dog' }
     }
   },
