@@ -43,7 +43,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
       isolated: { prefix: 'أثا', letter: 'ث', suffix: '', translation: 'Furniture' },
       initial: { prefix: '', letter: 'ثـ', suffix: 'علب', translation: 'Fox' },
       medial: { prefix: 'مـ', letter: 'ـثـ', suffix: 'ل', translation: 'Example' },
-      final: { prefix: 'ليـ', letter: 'ـث', suffix: '', translation: 'Lion' }
+      final: { prefix: 'بحـ', letter: 'ـث', suffix: '', translation: 'Research' }
     }
   },
   {

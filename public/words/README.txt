@@ -39,7 +39,7 @@ LETTER 4 - Tha (ث):
   letter-4-isolated.wav  → أثاث (Furniture)
   letter-4-initial.wav   → ثعلب (Fox)
   letter-4-medial.wav    → مثل (Example)
-  letter-4-final.wav     → ليث (Lion)
+  letter-4-final.wav     → بحث (Research)
 
 LETTER 5 - Jeem (ج):
   letter-5-isolated.wav  → تاج (Crown)
