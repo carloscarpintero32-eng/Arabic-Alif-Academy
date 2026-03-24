@@ -153,9 +153,9 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
               <Volume1 className="w-4 h-4 text-indigo-400" />
             </div>
             <div className="flex flex-col items-center -mt-4">
-              <span className="text-6xl arabic-text text-indigo-600 mb-2 leading-none group-hover:scale-110 transition-transform">{state.shape}</span>
-              <span className="text-xs font-black text-slate-600 uppercase tracking-widest mb-3">{state.label}</span>
+              <span className="text-6xl arabic-text text-indigo-600 leading-none group-hover:scale-110 transition-transform">{state.shape}</span>
             </div>
+            <span className="text-xs font-black text-slate-600 uppercase tracking-widest">{state.label}</span>
             <HighlightedWord example={state.ex} />
           </button>
         ))}
