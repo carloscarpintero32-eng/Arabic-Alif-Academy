@@ -15,7 +15,7 @@ interface LessonScreenProps {
 const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="text-[12px] arabic-text dir-rtl mb-0.5">
+      <div className="text-[20px] arabic-text dir-rtl mb-0.5">
         <span className="text-slate-500">{example.prefix}</span>
         <span className="text-indigo-600 font-bold">{example.letter}</span>
         <span className="text-slate-500">{example.suffix}</span>
