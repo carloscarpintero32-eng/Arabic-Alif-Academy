@@ -15,12 +15,12 @@ interface LessonScreenProps {
 const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="text-xl arabic-text dir-rtl mb-0.5">
-        <span className="text-slate-400">{example.prefix}</span>
-        <span className="text-indigo-600 font-bold underline decoration-2 underline-offset-4">{example.letter}</span>
-        <span className="text-slate-400">{example.suffix}</span>
+      <div className="text-[12px] arabic-text dir-rtl mb-0.5">
+        <span className="text-slate-500">{example.prefix}</span>
+        <span className="text-indigo-600 font-bold">{example.letter}</span>
+        <span className="text-slate-500">{example.suffix}</span>
       </div>
-      <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
+      <div className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">
         {example.translation}
       </div>
     </div>
