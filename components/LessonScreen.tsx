@@ -115,20 +115,22 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
 
   return (
     <div className="flex flex-col h-full animate-fadeIn">
-      <div className="mb-4">
+      <div className="mb-2">
         <div className="flex justify-between items-baseline">
-          <h2 className="text-2xl font-black text-slate-800 tracking-tight">Letter {currentLetter.name}</h2>
+          <h2 className="text-2xl font-black text-slate-800 tracking-tight">
+            Letter {currentLetter.name}
+            <span className="text-slate-400 text-sm font-bold tracking-widest uppercase ml-2">/ {currentLetter.transliteration} /</span>
+          </h2>
           <span className="text-indigo-500 font-bold text-sm tracking-widest uppercase">
             {currentLetterIndex + 1} / {letters.length}
           </span>
         </div>
-        <p className="text-slate-400 text-sm font-bold tracking-widest uppercase">/ {currentLetter.transliteration} /</p>
       </div>
 
       <button
         onClick={() => playInstruction()}
         disabled={isAudioPlaying}
-        className={`w-full mb-6 flex items-center justify-center space-x-3 p-4 rounded-2xl border-2 transition-all transform active:scale-95 shadow-sm ${isAudioPlaying
+        className={`w-full mb-3 flex items-center justify-center space-x-3 p-4 rounded-2xl border-2 transition-all transform active:scale-95 shadow-sm ${isAudioPlaying
           ? 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed'
           : 'bg-indigo-50 border-indigo-200 text-indigo-600 hover:bg-indigo-100'
           }`}
@@ -144,7 +146,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
       </button>
 
       {/* Shapes Grid - 2x2 for mobile aspect */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div className="grid grid-cols-2 gap-3 mb-3">
         {[
           { label: 'Isolated', shape: currentLetter.isolated, ex: currentLetter.examples.isolated, position: 'isolated' },
           { label: 'Initial', shape: currentLetter.initial, ex: currentLetter.examples.initial, position: 'initial' },
@@ -168,7 +170,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
         ))}
       </div>
 
-      <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6">
+      <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 mb-3">
         <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Teacher's Note</h4>
         <p className="text-xs text-slate-600 leading-tight">
           {currentLetter.englishComparison} {currentLetter.mouthTips}
