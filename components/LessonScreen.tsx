@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import { ALPHABET_DATA } from '../constants';
 import { speechService } from '../services/geminiService';
 import { useSounds } from '../hooks/useSounds';
-import { ArrowRight, PlayCircle, Volume2, Grid as GridIcon, Volume1 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, PlayCircle, Volume2, Grid as GridIcon, Volume1 } from 'lucide-react';
 import { Example } from '../types';
 
 interface LessonScreenProps {
@@ -99,6 +99,13 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
     }
   };
 
+  const handlePrevious = () => {
+    playClick();
+    setIsAudioPlaying(false);
+    setAudioError(false);
+    setCurrentLetterIndex(currentLetterIndex - 1);
+  };
+
   const handleBack = () => {
     playNavigation();
     onBackToModules();
@@ -176,6 +183,16 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
           <span>{currentLetterIndex === letters.length - 1 ? 'Start Practice' : 'Next Letter'}</span>
           <ArrowRight className="w-5 h-5" />
         </button>
+
+        {currentLetterIndex > 0 && (
+          <button
+            onClick={handlePrevious}
+            className="w-full flex items-center justify-center space-x-2 bg-white border border-slate-200 text-slate-500 p-4 rounded-2xl text-sm font-black hover:bg-slate-50 transition-all active:scale-95"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Previous Letter</span>
+          </button>
+        )}
 
         <button
           onClick={onBackToModules}
