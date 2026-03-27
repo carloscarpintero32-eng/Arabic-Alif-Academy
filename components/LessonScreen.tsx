@@ -154,12 +154,12 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
           <button
             key={state.label}
             onClick={() => playWord(state.ex, state.position)}
-            className="group relative bg-white border-2 border-slate-100 rounded-2xl px-5 pt-1 pb-5 text-center shadow-sm flex flex-col items-center justify-between min-h-[182px] transition-all hover:border-indigo-300 hover:shadow-md active:scale-95"
+            className="group relative bg-white border-2 border-slate-100 rounded-2xl px-5 pt-5 pb-5 text-center shadow-sm flex flex-col items-center justify-between min-h-[237px] transition-all hover:border-indigo-300 hover:shadow-md active:scale-95"
           >
             <div className="absolute top-2 right-2 opacity-50 group-hover:opacity-100 transition-opacity">
               <Volume1 className="w-4 h-4 text-indigo-400" />
             </div>
-            <div className="flex flex-col items-center -mt-4">
+            <div className="flex flex-col items-center">
               <span className="text-6xl arabic-text text-indigo-600 leading-none group-hover:scale-110 transition-transform">{state.shape}</span>
             </div>
             <span className="text-xs font-black text-slate-600 uppercase tracking-widest">{state.label}</span>
