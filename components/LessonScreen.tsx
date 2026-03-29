@@ -31,6 +31,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
   const letters = ALPHABET_DATA.slice(batchIndex * 7, (batchIndex + 1) * 7);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [isWordPlaying, setIsWordPlaying] = useState(false);
   const [audioError, setAudioError] = useState(false);
   const currentLetter = letters[currentLetterIndex];
   const { playClick, playNavigation } = useSounds();
@@ -69,22 +70,24 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
   }, [currentLetter, isAudioPlaying]);
 
   const playWord = useCallback(async (example: Example, position: string) => {
-    // Audio file path format: /words/letter-{id}-{position}.wav
-    // Example: /words/letter-1-isolated.wav for Alif isolated (Rabbit أرنب)
+    if (isAudioPlaying || isWordPlaying) return;
     const audioPath = `/words/letter-${currentLetter.id}-${position}.wav`;
-
+    setIsWordPlaying(true);
     try {
       const audio = new Audio(audioPath);
-
+      audio.addEventListener('ended', () => {
+        setIsWordPlaying(false);
+      });
       audio.addEventListener('error', () => {
         console.warn(`Word audio file not found: ${audioPath}`);
+        setIsWordPlaying(false);
       });
-
       await audio.play();
     } catch (error) {
       console.warn(`Failed to play word audio for ${example.translation}:`, error);
+      setIsWordPlaying(false);
     }
-  }, [currentLetter]);
+  }, [currentLetter, isAudioPlaying, isWordPlaying]);
 
   const handleNext = () => {
     playClick();
@@ -155,8 +158,13 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
         ].map((state) => (
           <button
             key={state.label}
+            disabled={isAudioPlaying || isWordPlaying}
             onClick={() => playWord(state.ex, state.position)}
-            className="group relative bg-white border-2 border-slate-100 rounded-2xl px-5 pt-5 pb-5 text-center shadow-sm flex flex-col items-center justify-between min-h-[237px] transition-all hover:border-indigo-300 hover:shadow-md active:scale-95"
+            className={`group relative bg-white border-2 rounded-2xl px-5 pt-5 pb-5 text-center shadow-sm flex flex-col items-center justify-between min-h-[237px] transition-all ${
+              isAudioPlaying || isWordPlaying
+                ? 'border-slate-100 opacity-50 cursor-not-allowed'
+                : 'border-slate-100 hover:border-indigo-300 hover:shadow-md active:scale-95'
+            }`}
           >
             <div className="absolute top-2 right-2 opacity-50 group-hover:opacity-100 transition-opacity">
               <Volume1 className="w-4 h-4 text-indigo-400" />
