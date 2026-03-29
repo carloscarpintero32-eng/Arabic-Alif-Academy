@@ -20,7 +20,7 @@ Required Files by Letter:
 LETTER 1 - Alif (أ):
   letter-1-isolated.wav  → أرنب (Rabbit)
   letter-1-initial.wav   → أسد (Lion)
-  letter-1-medial.wav    → فأر (Mouse)
+  letter-1-medial.wav    → رأس (Head)
   letter-1-final.wav     → مرفأ (Port)
 
 LETTER 2 - Ba (ب):
