@@ -186,10 +186,15 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
               key={letter.id}
               onClick={() => handleGuess(letter)}
               disabled={isRoundResolved}
-              className={`p-6 rounded-2xl border-2 transition-all flex flex-col items-center justify-center h-24 relative ${style}`}
+              className={`rounded-2xl border-2 transition-all flex flex-col items-center justify-between min-h-[237px] px-5 pt-5 pb-5 relative ${style}`}
             >
-              <span className="text-xl font-black">{letter.name}</span>
-              <span className="text-sm arabic-text opacity-40">{letter.isolated}</span>
+              <span className={`text-6xl arabic-text leading-none ${
+                isRoundResolved
+                  ? isTarget ? 'text-green-600' : isSelected ? 'text-red-500' : 'text-slate-300'
+                  : 'text-indigo-600'
+              }`}>{letter.isolated}</span>
+              <span className="text-xs font-black uppercase tracking-widest">{letter.name}</span>
+              <div className="h-4" />
             </button>
           );
         })}
