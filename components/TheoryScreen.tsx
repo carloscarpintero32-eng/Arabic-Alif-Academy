@@ -24,7 +24,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
   return (
     <div className="flex flex-col space-y-8 animate-fadeIn h-full pb-4">
       <div className="space-y-2">
-        <h2 className="text-3xl font-bold text-slate-800 border-b-4 border-indigo-100 pb-2">The Magic of Arabic</h2>
+        <h2 className="text-3xl font-bold text-slate-800 border-b-4 border-teal-100 pb-2">The Magic of Arabic</h2>
         <p className="text-lg text-slate-600 leading-relaxed">
           Before we dive into the letters, let's explore what makes this language so unique and exciting!
         </p>
@@ -32,7 +32,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
 
       <div className="flex flex-col space-y-4">
         <div className="bg-white p-5 rounded-2xl border-2 border-indigo-50 shadow-sm flex items-start space-x-4">
-          <div className="bg-indigo-100 p-3 rounded-xl text-indigo-600">
+          <div className="bg-teal-100 p-3 rounded-xl text-teal-700">
             <Info className="w-6 h-6" />
           </div>
           <div>
@@ -41,7 +41,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border-2 border-indigo-50 shadow-sm flex items-start space-x-4">
+        <div className="bg-white p-5 rounded-2xl border-2 border-teal-50 shadow-sm flex items-start space-x-4">
           <div className="bg-amber-100 p-3 rounded-xl text-amber-600">
             <PenTool className="w-6 h-6" />
           </div>
@@ -51,7 +51,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border-2 border-indigo-50 shadow-sm flex items-start space-x-4">
+        <div className="bg-white p-5 rounded-2xl border-2 border-teal-50 shadow-sm flex items-start space-x-4">
           <div className="bg-green-100 p-3 rounded-xl text-green-600">
             <Languages className="w-6 h-6" />
           </div>
@@ -61,7 +61,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border-2 border-indigo-50 shadow-sm flex items-start space-x-4">
+        <div className="bg-white p-5 rounded-2xl border-2 border-teal-50 shadow-sm flex items-start space-x-4">
           <div className="bg-pink-100 p-3 rounded-xl text-pink-600">
             <Layout className="w-6 h-6" />
           </div>
@@ -83,7 +83,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
 
         <button
           onClick={handleContinue}
-          className="flex items-center space-x-2 bg-indigo-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-indigo-700 transition-all shadow-md transform hover:scale-105 active:scale-95"
+          className="flex items-center space-x-2 bg-teal-700 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-teal-800 transition-all shadow-md transform hover:scale-105 active:scale-95"
         >
           <span>Begin First Lesson</span>
           <ArrowRight className="w-5 h-5" />

@@ -17,7 +17,7 @@ const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
     <div className="flex flex-col items-center">
       <div className="text-[30px] arabic-text dir-rtl mb-0.5">
         <span className="text-slate-500">{example.prefix}</span>
-        <span className="text-indigo-600 font-bold">{example.letter}</span>
+        <span className="text-teal-700 font-bold">{example.letter}</span>
         <span className="text-slate-500">{example.suffix}</span>
       </div>
       <div className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">
@@ -124,7 +124,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
             Letter {currentLetter.name}
             <span className="text-slate-400 text-sm font-bold tracking-widest uppercase ml-2">/ {currentLetter.transliteration} /</span>
           </h2>
-          <span className="text-indigo-500 font-bold text-sm tracking-widest uppercase">
+          <span className="text-teal-600 font-bold text-sm tracking-widest uppercase">
             {currentLetterIndex + 1} / {letters.length}
           </span>
         </div>
@@ -135,7 +135,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
         disabled={isAudioPlaying}
         className={`w-full mb-3 flex items-center justify-center space-x-3 p-4 rounded-2xl border-2 transition-all transform active:scale-95 shadow-sm ${isAudioPlaying
           ? 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed'
-          : 'bg-indigo-50 border-indigo-200 text-indigo-600 hover:bg-indigo-100'
+          : 'bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100'
           }`}
       >
         {isAudioPlaying ? (
@@ -162,15 +162,15 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
             onClick={() => playWord(state.ex, state.position)}
             className={`group relative bg-white border-2 rounded-2xl px-5 pt-5 pb-5 text-center shadow-sm flex flex-col items-center justify-between min-h-[237px] transition-all ${
               isAudioPlaying || isWordPlaying
-                ? 'border-slate-100 opacity-50 cursor-not-allowed'
-                : 'border-slate-100 hover:border-indigo-300 hover:shadow-md active:scale-95'
+                ? 'border-slate-300 opacity-50 cursor-not-allowed'
+                : 'border-slate-300 hover:border-teal-400 hover:shadow-md active:scale-95'
             }`}
           >
             <div className="absolute top-2 right-2 opacity-50 group-hover:opacity-100 transition-opacity">
-              <Volume1 className="w-4 h-4 text-indigo-400" />
+              <Volume1 className="w-4 h-4 text-amber-500" />
             </div>
             <div className="flex flex-col items-center">
-              <span className="text-6xl arabic-text text-indigo-600 leading-none group-hover:scale-110 transition-transform">{state.shape}</span>
+              <span className="text-6xl arabic-text text-teal-700 leading-none group-hover:scale-110 transition-transform">{state.shape}</span>
             </div>
             <span className="text-xs font-black text-slate-600 uppercase tracking-widest">{state.label}</span>
             <HighlightedWord example={state.ex} />
@@ -188,7 +188,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComple
       <div className="mt-auto pt-4 flex flex-col space-y-3">
         <button
           onClick={handleNext}
-          className="w-full flex items-center justify-center space-x-2 bg-indigo-600 text-white p-5 rounded-2xl text-lg font-black hover:bg-indigo-700 transition-all shadow-lg active:scale-95"
+          className="w-full flex items-center justify-center space-x-2 bg-teal-700 text-white p-5 rounded-2xl text-lg font-black hover:bg-teal-800 transition-all shadow-lg active:scale-95"
         >
           <span>{currentLetterIndex === letters.length - 1 ? 'Start Practice' : 'Next Letter'}</span>
           <ArrowRight className="w-5 h-5" />

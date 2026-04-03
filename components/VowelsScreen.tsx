@@ -17,7 +17,7 @@ export const VowelsScreen: React.FC<VowelsScreenProps> = ({ onBack }) => {
   };
 
   const vowels = [
-    { name: 'Fatha', mark: '◌َ', sound: 'a (as in "apple")', example: 'بَ (ba)', color: 'bg-indigo-50 border-indigo-200 text-indigo-700' },
+    { name: 'Fatha', mark: '◌َ', sound: 'a (as in "apple")', example: 'بَ (ba)', color: 'bg-teal-50 border-teal-200 text-teal-700' },
     { name: 'Kasra', mark: '◌ِ', sound: 'i (as in "ink")', example: 'بِ (bi)', color: 'bg-emerald-50 border-emerald-200 text-emerald-700' },
     { name: 'Damma', mark: '◌ُ', sound: 'u (as in "blue")', example: 'بُ (bu)', color: 'bg-amber-50 border-amber-200 text-amber-700' },
     { name: 'Sukun', mark: '◌ْ', sound: 'Silent (stop)', example: 'بْ (b)', color: 'bg-slate-50 border-slate-200 text-slate-700' },
@@ -57,7 +57,7 @@ export const VowelsScreen: React.FC<VowelsScreenProps> = ({ onBack }) => {
         ))}
       </div>
 
-      <div className="bg-indigo-600 text-white p-5 rounded-[2rem] flex items-center space-x-4 shadow-lg">
+      <div className="bg-teal-700 text-white p-5 rounded-[2rem] flex items-center space-x-4 shadow-lg">
         <div className="bg-white/20 p-3 rounded-xl shrink-0">
           <Volume2 className="w-6 h-6" />
         </div>

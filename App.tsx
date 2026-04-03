@@ -107,12 +107,12 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-slate-900 flex items-center justify-center p-0 sm:p-4">
       {/* Mobile Wrapper: 18:9 Aspect Ratio on desktop, full screen on mobile */}
       <div className="w-full h-full sm:h-[92vh] sm:aspect-[9/18] sm:max-w-[450px] bg-white sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative border border-slate-800">
-        <header className="bg-indigo-600 text-white p-5 flex justify-between items-center shrink-0">
+        <header className="bg-teal-700 text-white p-5 flex justify-between items-center shrink-0">
           <div className="flex items-center space-x-3">
             {showBackButton && (
               <button 
                 onClick={showModules}
-                className="p-1 hover:bg-indigo-500 rounded-full transition-colors"
+                className="p-1 hover:bg-teal-600 rounded-full transition-colors"
                 title="Back"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -136,9 +136,9 @@ const App: React.FC = () => {
         
         {/* Progress indicator for lessons/games */}
         {(appState === AppState.LESSON || appState === AppState.MINI_GAME) && (
-          <div className="absolute top-[72px] left-0 w-full h-1 bg-indigo-100">
+          <div className="absolute top-[72px] left-0 w-full h-1 bg-teal-100">
              <div 
-               className="h-full bg-indigo-500 transition-all duration-500"
+               className="h-full bg-teal-600 transition-all duration-500"
                style={{ 
                  width: appState === AppState.LESSON 
                    ? `${(batchIndex + 1) * 25}%` 

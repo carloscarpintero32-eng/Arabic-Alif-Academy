@@ -63,7 +63,7 @@ LETTER 8 - Dal (د):
   letter-8-isolated.wav  → ورد (Rose)
   letter-8-initial.wav   → ديك (Rooster)
   letter-8-medial.wav    → بدر (Moon)
-  letter-8-final.wav     → ولد (Boy)
+  letter-8-final.wav     → بلد (Country)
 
 LETTER 9 - Thal (ذ):
   letter-9-isolated.wav  → أستاذ (Teacher)

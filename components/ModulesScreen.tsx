@@ -23,7 +23,7 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
       title: 'Alphabet Master',
       description: "Learn all 28 letters and their shapes.",
       icon: <BookOpen className="w-6 h-6" />,
-      color: 'bg-indigo-600',
+      color: 'bg-teal-700',
       active: true
     },
     {
@@ -59,7 +59,7 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
             disabled={!m.active}
             className={`relative p-6 rounded-[2rem] text-left transition-all flex items-start space-x-4 border-b-4 shadow-md
               ${m.active
-                ? 'bg-white border-indigo-100 hover:border-indigo-400 active:translate-y-1 cursor-pointer'
+                ? 'bg-white border-teal-100 hover:border-teal-400 active:translate-y-1 cursor-pointer'
                 : 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
               }`}
           >
@@ -82,8 +82,8 @@ export const ModulesScreen: React.FC<ModulesScreenProps> = ({ onSelectModule }) 
         ))}
       </div>
 
-      <div className="mt-auto bg-indigo-50 p-6 rounded-[2rem] border border-indigo-100">
-        <p className="text-xs text-indigo-700 font-bold leading-relaxed text-center italic">
+      <div className="mt-auto bg-teal-50 p-6 rounded-[2rem] border border-teal-100">
+        <p className="text-xs text-teal-700 font-bold leading-relaxed text-center italic">
           "The beauty of Arabic lies in its script. Take your time with Module 1!"
         </p>
       </div>

@@ -32,7 +32,7 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
       id: 0,
       title: 'Group 1',
       letters: 'أ ب ت ث ج ح خ',
-      color: 'border-indigo-100 hover:border-indigo-500 bg-indigo-50/20'
+      color: 'border-teal-100 hover:border-teal-500 bg-teal-50/20'
     },
     {
       id: 1,
@@ -70,9 +70,9 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
           >
             <div>
               <h3 className="text-lg font-black text-slate-800 mb-1">{group.title}</h3>
-              <div className="text-2xl arabic-text text-indigo-700 tracking-widest leading-none">{group.letters}</div>
+              <div className="text-2xl arabic-text text-teal-700 tracking-widest leading-none">{group.letters}</div>
             </div>
-            <div className="bg-white p-2 rounded-full shadow-inner group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+            <div className="bg-white p-2 rounded-full shadow-inner group-hover:bg-teal-700 group-hover:text-white transition-colors">
               <ChevronRight className="w-5 h-5" />
             </div>
           </button>

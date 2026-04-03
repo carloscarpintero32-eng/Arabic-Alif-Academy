@@ -18,7 +18,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-6 animate-fadeIn h-full py-4">
       <div className="relative">
-        <div className="w-24 h-24 bg-indigo-600 rounded-full flex items-center justify-center mb-2 shadow-xl animate-bounce duration-[3000ms]">
+        <div className="w-24 h-24 bg-teal-700 rounded-full flex items-center justify-center mb-2 shadow-xl animate-bounce duration-[3000ms]">
           <span className="text-5xl arabic-text text-white">أ</span>
         </div>
         <Sparkles className="absolute -top-3 -right-3 text-amber-400 w-8 h-8 animate-pulse" />
@@ -34,7 +34,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       <div className="pt-4 w-full">
         <button
           onClick={handleStart}
-          className="group w-full relative flex items-center justify-center space-x-3 bg-indigo-600 text-white p-6 rounded-[2rem] text-xl font-black transition-all shadow-lg active:translate-y-1"
+          className="group w-full relative flex items-center justify-center space-x-3 bg-teal-700 text-white p-6 rounded-[2rem] text-xl font-black transition-all shadow-lg active:translate-y-1"
         >
           <BookOpen className="w-6 h-6" />
           <span>Enter Academy</span>
