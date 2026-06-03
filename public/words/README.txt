@@ -91,7 +91,7 @@ LETTER 12 - Seen (س):
 
 LETTER 13 - Sheen (ش):
   letter-13-isolated.wav  → فراش (Butterfly)
-  letter-13-initial.wav   → شمس (Sun)
+  letter-13-initial.wav   → شمعة (Candle)
   letter-13-medial.wav    → مشط (Comb)
   letter-13-final.wav     → عش (Nest)
 

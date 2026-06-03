@@ -140,7 +140,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     mouthTips: 'Pucker your lips slightly and push air through.',
     examples: {
       isolated: { prefix: 'فرا', letter: 'ش', suffix: '', translation: 'Butterfly' },
-      initial: { prefix: '', letter: 'شـ', suffix: 'مس', translation: 'Sun' },
+      initial: { prefix: '', letter: 'شـ', suffix: 'معة', translation: 'Candle' },
       medial: { prefix: 'مـ', letter: 'ـشـ', suffix: 'ط', translation: 'Comb' },
       final: { prefix: 'عـ', letter: 'ـش', suffix: '', translation: 'Nest' }
     }
