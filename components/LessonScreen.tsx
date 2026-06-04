@@ -10,6 +10,8 @@ interface LessonScreenProps {
   batchIndex: number;
   onComplete: () => void;
   onBackToModules: () => void;
+  currentLetterIndex: number;
+  setCurrentLetterIndex: (index: number) => void;
 }
 
 const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
@@ -27,9 +29,14 @@ const HighlightedWord: React.FC<{ example: Example }> = ({ example }) => {
   );
 };
 
-export const LessonScreen: React.FC<LessonScreenProps> = ({ batchIndex, onComplete, onBackToModules }) => {
+export const LessonScreen: React.FC<LessonScreenProps> = ({ 
+  batchIndex, 
+  onComplete, 
+  onBackToModules,
+  currentLetterIndex,
+  setCurrentLetterIndex
+}) => {
   const letters = ALPHABET_DATA.slice(batchIndex * 7, (batchIndex + 1) * 7);
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isWordPlaying, setIsWordPlaying] = useState(false);
   const [audioError, setAudioError] = useState(false);

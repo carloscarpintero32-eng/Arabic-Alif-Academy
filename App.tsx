@@ -18,6 +18,7 @@ const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.WELCOME);
   const [batchIndex, setBatchIndex] = useState(0); 
   const [testMode, setTestMode] = useState<'current' | 'all'>('current');
+  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
 
   const showModules = useCallback(() => {
     speechService.stop();
@@ -36,6 +37,7 @@ const App: React.FC = () => {
 
   const handleGroupSelect = useCallback((batch: number) => {
     setBatchIndex(batch);
+    setCurrentLetterIndex(0);
     setAppState(AppState.LESSON);
   }, []);
 
@@ -79,6 +81,8 @@ const App: React.FC = () => {
             batchIndex={batchIndex} 
             onBackToModules={showModules}
             onComplete={batchIndex >= 1 ? () => setAppState(AppState.GAME_PROMPT) : handleLessonComplete} 
+            currentLetterIndex={currentLetterIndex}
+            setCurrentLetterIndex={setCurrentLetterIndex}
           />
         );
       case AppState.GAME_PROMPT:
@@ -160,7 +164,7 @@ const App: React.FC = () => {
               className="h-full transition-all duration-500"
               style={{
                 background: `linear-gradient(90deg, ${palette.saffronGold}, ${palette.terracotta})`,
-                width: appState === AppState.LESSON ? `${(batchIndex + 1) * 25}%` : '100%',
+                width: appState === AppState.LESSON ? `${((currentLetterIndex + 1) / 7) * 100}%` : '100%',
               }}
             />
           </div>
