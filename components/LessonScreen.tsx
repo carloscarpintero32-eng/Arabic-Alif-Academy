@@ -212,7 +212,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({
         )}
 
         <button
-          onClick={onBackToModules}
+          onClick={handleBack}
           className="w-full flex items-center justify-center space-x-2 bg-white border border-slate-200 text-slate-400 p-3 rounded-xl text-xs font-bold hover:bg-slate-50 transition-all"
         >
           <GridIcon className="w-4 h-4" />

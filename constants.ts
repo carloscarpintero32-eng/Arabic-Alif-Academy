@@ -183,7 +183,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     englishComparison: 'A heavy, emphatic "Dh" sound.',
     mouthTips: 'Similar to "Dh" but with the back of the tongue raised.',
     examples: {
-      isolated: { prefix: 'لفـ', letter: 'ظ', suffix: '', translation: 'Word' },
+      isolated: { prefix: 'محفو', letter: 'ظ', suffix: '', translation: 'Protected' },
       initial: { prefix: '', letter: 'ظـ', suffix: 'رف', translation: 'Envelope' },
       medial: { prefix: 'نـ', letter: 'ـظـ', suffix: 'ارة', translation: 'Glasses' },
       final: { prefix: 'حـفـ', letter: 'ـظ', suffix: '', translation: 'Keep' }

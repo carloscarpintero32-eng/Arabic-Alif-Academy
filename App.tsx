@@ -32,6 +32,7 @@ const App: React.FC = () => {
   }, []);
 
   const proceedToGroupSelection = useCallback(() => {
+    speechService.stop();
     setAppState(AppState.LETTER_SELECTION);
   }, []);
 
@@ -79,7 +80,7 @@ const App: React.FC = () => {
         return (
           <LessonScreen 
             batchIndex={batchIndex} 
-            onBackToModules={showModules}
+            onBackToModules={proceedToGroupSelection}
             onComplete={batchIndex >= 1 ? () => setAppState(AppState.GAME_PROMPT) : handleLessonComplete} 
             currentLetterIndex={currentLetterIndex}
             setCurrentLetterIndex={setCurrentLetterIndex}

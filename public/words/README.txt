@@ -114,7 +114,7 @@ LETTER 16 - Taa (ط):
   letter-16-final.wav     → بط (Duck)
 
 LETTER 17 - Zaa (ظ):
-  letter-17-isolated.wav  → لفظ (Word)
+  letter-17-isolated.wav  → محفوظ (Protected)
   letter-17-initial.wav   → ظرف (Envelope)
   letter-17-medial.wav    → نظارة (Glasses)
   letter-17-final.wav     → حفظ (Keep/Memorize)
