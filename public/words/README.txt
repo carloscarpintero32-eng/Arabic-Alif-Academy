@@ -121,14 +121,14 @@ LETTER 17 - Zaa (ظ):
 
 LETTER 18 - Ayn (ع):
   letter-18-isolated.wav  → ذراع (Arm)
-  letter-18-initial.wav   → عين (Eye)
+  letter-18-initial.wav   → عسل (Honey)
   letter-18-medial.wav    → ثعلب (Fox)
   letter-18-final.wav     → إصبع (Finger)
 
 LETTER 19 - Ghayn (غ):
   letter-19-isolated.wav  → دماغ (Brain)
   letter-19-initial.wav   → غزال (Gazelle)
-  letter-19-medial.wav    → ببغاء (Parrot)
+  letter-19-medial.wav    → شغل (Work)
   letter-19-final.wav     → صمغ (Glue)
 
 LETTER 20 - Fa (ف):

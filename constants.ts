@@ -195,7 +195,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     mouthTips: 'Constrict the middle of your throat as if you are swallowing.',
     examples: {
       isolated: { prefix: 'ذرا', letter: 'ع', suffix: '', translation: 'Arm' },
-      initial: { prefix: '', letter: 'عـ', suffix: 'ين', translation: 'Eye' },
+      initial: { prefix: '', letter: 'عـ', suffix: 'سل', translation: 'Honey' },
       medial: { prefix: 'ثـ', letter: 'ـعـ', suffix: 'لب', translation: 'Fox' },
       final: { prefix: 'إصبـ', letter: 'ـع', suffix: '', translation: 'Finger' }
     }
@@ -207,7 +207,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     examples: {
       isolated: { prefix: 'دما', letter: 'غ', suffix: '', translation: 'Brain' },
       initial: { prefix: '', letter: 'غـ', suffix: 'زال', translation: 'Gazelle' },
-      medial: { prefix: 'بـ', letter: 'ـغـ', suffix: 'باء', translation: 'Parrot' },
+      medial: { prefix: 'شـ', letter: 'ـغـ', suffix: 'ل', translation: 'Work' },
       final: { prefix: 'صمـ', letter: 'ـغ', suffix: '', translation: 'Glue' }
     }
   },
