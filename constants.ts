@@ -262,8 +262,8 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     examples: {
       isolated: { prefix: 'رسا', letter: 'م', suffix: '', translation: 'Painter' },
       initial: { prefix: '', letter: 'مـ', suffix: 'وز', translation: 'Banana' },
-      medial: { prefix: 'سـ', letter: 'ـمـ', suffix: 'كة', translation: 'Fish' },
-      final: { prefix: 'قـلـ', letter: 'ـم', suffix: '', translation: 'Pen' }
+      medial: { prefix: 'حـ', letter: 'ـمـ', suffix: 'ار', translation: 'Donkey' },
+      final: { prefix: 'نـجـ', letter: 'ـم', suffix: '', translation: 'Star' }
     }
   },
   {
@@ -274,7 +274,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
       isolated: { prefix: 'رما', letter: 'ن', suffix: '', translation: 'Pomegranate' },
       initial: { prefix: '', letter: 'نـ', suffix: 'حلة', translation: 'Bee' },
       medial: { prefix: 'عـ', letter: 'ـنـ', suffix: 'ب', translation: 'Grapes' },
-      final: { prefix: 'سـفـيـ', letter: 'ـن', suffix: '', translation: 'Ship' }
+      final: { prefix: 'تـيـ', letter: 'ـن', suffix: '', translation: 'Fig' }
     }
   },
   {

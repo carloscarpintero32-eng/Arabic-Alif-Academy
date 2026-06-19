@@ -158,14 +158,14 @@ LETTER 23 - Laam (ل):
 LETTER 24 - Meem (م):
   letter-24-isolated.wav  → رسام (Painter)
   letter-24-initial.wav   → موز (Banana)
-  letter-24-medial.wav    → سمكة (Fish)
-  letter-24-final.wav     → قلم (Pen)
+  letter-24-medial.wav    → حمار (Donkey)
+  letter-24-final.wav     → نجم (Star)
 
 LETTER 25 - Noon (ن):
   letter-25-isolated.wav  → رمان (Pomegranate)
   letter-25-initial.wav   → نحلة (Bee)
   letter-25-medial.wav    → عنب (Grapes)
-  letter-25-final.wav     → سفينة (Ship)
+  letter-25-final.wav     → تين (Fig)
 
 LETTER 26 - He (ه):
   letter-26-isolated.wav  → مياه (Waters)
