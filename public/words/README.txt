@@ -175,7 +175,7 @@ LETTER 26 - He (ه):
 
 LETTER 27 - Waw (و):
   letter-27-isolated.wav  → دلو (Bucket)
-  letter-27-initial.wav   → ورد (Rose)
+  letter-27-initial.wav   → ولد (Boy)
   letter-27-medial.wav    → دورة (Turn)
   letter-27-final.wav     → بهو (Lobby)
 

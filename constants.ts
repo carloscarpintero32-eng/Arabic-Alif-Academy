@@ -294,7 +294,7 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     mouthTips: 'Round your lips into a small circle.',
     examples: {
       isolated: { prefix: 'دلـ', letter: 'و', suffix: '', translation: 'Bucket' },
-      initial: { prefix: '', letter: 'و', suffix: 'رد', translation: 'Rose' },
+      initial: { prefix: '', letter: 'و', suffix: 'لد', translation: 'Boy' },
       medial: { prefix: 'د', letter: 'ـو', suffix: 'رة', translation: 'Turn' },
       final: { prefix: 'بـهـ', letter: 'ـو', suffix: '', translation: 'Lobby' }
     }
