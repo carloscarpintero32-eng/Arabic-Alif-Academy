@@ -32,25 +32,25 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
       id: 0,
       title: 'Group 1',
       letters: 'أ ب ت ث ج ح خ',
-      color: 'border-teal-100 hover:border-teal-500 bg-teal-50/20'
+      color: 'border-teal-300 hover:border-teal-600 bg-teal-100/40'
     },
     {
       id: 1,
       title: 'Group 2',
       letters: 'د ذ ر ز س ش ص',
-      color: 'border-emerald-100 hover:border-emerald-500 bg-emerald-50/20'
+      color: 'border-emerald-300 hover:border-emerald-600 bg-emerald-100/40'
     },
     {
       id: 2,
       title: 'Group 3',
       letters: 'ض ط ظ ع غ ف ق',
-      color: 'border-amber-100 hover:border-amber-500 bg-amber-50/20'
+      color: 'border-amber-300 hover:border-amber-600 bg-amber-100/40'
     },
     {
       id: 3,
       title: 'Group 4',
       letters: 'ك ل م ن هـ و ي',
-      color: 'border-pink-100 hover:border-pink-500 bg-pink-50/20'
+      color: 'border-pink-300 hover:border-pink-600 bg-pink-100/40'
     }
   ];
 
@@ -80,7 +80,7 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
 
         <button
           onClick={handleVowelsSelect}
-          className="group p-5 rounded-2xl border-2 border-purple-100 hover:border-purple-500 bg-purple-50/20 transition-all transform flex items-center justify-between shadow-sm active:translate-y-1"
+          className="group p-5 rounded-2xl border-2 border-purple-300 hover:border-purple-600 bg-purple-100/40 transition-all transform flex items-center justify-between shadow-sm active:translate-y-1"
         >
           <div>
             <h3 className="text-lg font-black text-slate-800 mb-1">Vowel Marks</h3>
@@ -95,7 +95,7 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
       <div className="mt-auto pt-4 flex justify-center">
         <button
           onClick={handleBack}
-          className="flex items-center space-x-2 bg-slate-100 text-slate-500 px-8 py-3 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
+          className="flex items-center space-x-2 bg-slate-200 text-slate-700 px-8 py-3 rounded-xl text-sm font-bold hover:bg-slate-300 transition-all"
         >
           <GridIcon className="w-4 h-4" />
           <span>Exit Center</span>
