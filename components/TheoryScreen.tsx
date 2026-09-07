@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { ArrowRight, Info, Languages, PenTool, Layout, Grid } from 'lucide-react';
+import { ArrowRight, Info, Languages, PenTool, Layout, HelpCircle } from 'lucide-react';
 import { useSounds } from '../hooks/useSounds';
 
 interface TheoryScreenProps {
   onContinue: () => void;
-  onBackToModules: () => void;
+  onShowGuide: () => void;
 }
 
-export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackToModules }) => {
+export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onShowGuide }) => {
   const { playClick, playNavigation } = useSounds();
 
   const handleContinue = () => {
@@ -16,9 +16,9 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
     onContinue();
   };
 
-  const handleBack = () => {
+  const handleShowGuide = () => {
     playNavigation();
-    onBackToModules();
+    onShowGuide();
   };
 
   return (
@@ -74,11 +74,11 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onBackTo
 
       <div className="mt-auto flex justify-between items-center">
         <button
-          onClick={handleBack}
-          className="flex items-center space-x-2 bg-white border-2 border-slate-200 text-slate-500 px-6 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition-all"
+          onClick={handleShowGuide}
+          className="flex items-center space-x-2 bg-white border-2 border-teal-200 text-teal-700 px-5 py-4 rounded-xl text-base font-bold hover:bg-teal-50 transition-all shadow-sm"
         >
-          <Grid className="w-5 h-5" />
-          <span>Back to Modules</span>
+          <HelpCircle className="w-5 h-5 text-teal-600" />
+          <span>Lesson Guide</span>
         </button>
 
         <button

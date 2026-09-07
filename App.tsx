@@ -9,6 +9,7 @@ import { TheoryScreen } from './components/TheoryScreen';
 import { LessonScreen } from './components/LessonScreen';
 import { GamePrompt } from './components/GamePrompt';
 import { MiniGame } from './components/MiniGame';
+import { InstructionsScreen } from './components/InstructionsScreen';
 import { VowelsScreen } from './components/VowelsScreen';
 import { EndScreen } from './components/EndScreen';
 import { XCircle, ChevronLeft } from 'lucide-react';
@@ -20,15 +21,19 @@ const App: React.FC = () => {
   const [testMode, setTestMode] = useState<'current' | 'all'>('current');
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
 
-  const showModules = useCallback(() => {
+  const showWelcome = useCallback(() => {
     speechService.stop();
-    setAppState(AppState.MODULES);
+    setAppState(AppState.WELCOME);
   }, []);
 
-  const handleModuleSelect = useCallback((moduleId: string) => {
-    if (moduleId === 'm1') {
-      setAppState(AppState.THEORY);
-    }
+  const startAlphabetJourney = useCallback(() => {
+    speechService.stop();
+    setAppState(AppState.THEORY);
+  }, []);
+
+  const showInstructions = useCallback(() => {
+    speechService.stop();
+    setAppState(AppState.INSTRUCTIONS);
   }, []);
 
   const proceedToGroupSelection = useCallback(() => {
@@ -63,19 +68,21 @@ const App: React.FC = () => {
   const renderContent = () => {
     switch (appState) {
       case AppState.WELCOME:
-        return <WelcomeScreen onStart={showModules} />;
+        return <WelcomeScreen onStart={startAlphabetJourney} />;
       case AppState.MODULES:
-        return <ModulesScreen onSelectModule={handleModuleSelect} />;
+        return <LetterSelectionScreen onSelectGroup={handleGroupSelect} onSelectVowels={handleVowelsSelect} onBack={showWelcome} />;
       case AppState.LETTER_SELECTION:
         return (
           <LetterSelectionScreen 
             onSelectGroup={handleGroupSelect} 
             onSelectVowels={handleVowelsSelect}
-            onBack={showModules} 
+            onBack={showWelcome} 
           />
         );
       case AppState.THEORY:
-        return <TheoryScreen onContinue={proceedToGroupSelection} onBackToModules={showModules} />;
+        return <TheoryScreen onContinue={proceedToGroupSelection} onShowGuide={showInstructions} />;
+      case AppState.INSTRUCTIONS:
+        return <InstructionsScreen onContinue={proceedToGroupSelection} onBack={startAlphabetJourney} />;
       case AppState.LESSON:
         return (
           <LessonScreen 
@@ -87,14 +94,14 @@ const App: React.FC = () => {
           />
         );
       case AppState.GAME_PROMPT:
-        return <GamePrompt onSelect={handleBatchTwoStart} onBackToModules={showModules} />;
+        return <GamePrompt batchIndex={batchIndex} onSelect={handleBatchTwoStart} onBackToModules={proceedToGroupSelection} />;
       case AppState.MINI_GAME:
         return (
           <MiniGame 
             batchIndex={batchIndex} 
             testMode={testMode} 
             onExit={proceedToGroupSelection} 
-            onBackToModules={showModules}
+            onBackToModules={proceedToGroupSelection}
           />
         );
       case AppState.VOWELS:
@@ -102,12 +109,12 @@ const App: React.FC = () => {
       case AppState.END:
         return <EndScreen />;
       default:
-        return <WelcomeScreen onStart={showModules} />;
+        return <WelcomeScreen onStart={startAlphabetJourney} />;
     }
   };
 
   const showQuitButton = appState !== AppState.WELCOME && appState !== AppState.END;
-  const showBackButton = appState !== AppState.WELCOME && appState !== AppState.MODULES && appState !== AppState.END;
+  const showBackButton = appState !== AppState.WELCOME && appState !== AppState.END;
 
   return (
     <div
@@ -138,7 +145,7 @@ const App: React.FC = () => {
           <div className="relative flex items-center space-x-3">
             {showBackButton && (
               <button
-                onClick={showModules}
+                onClick={showWelcome}
                 className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm transition hover:bg-white/20"
                 title="Back"
               >

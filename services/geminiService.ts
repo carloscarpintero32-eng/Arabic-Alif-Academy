@@ -51,19 +51,24 @@ export class SpeechService {
   }
 
   private async fallbackSpeak(text: string): Promise<void> {
-    console.log("Falling back to browser SpeechSynthesis...");
+    console.log("Falling back to browser SpeechSynthesis...", text);
     return new Promise((resolve) => {
       if (!window.speechSynthesis) {
         resolve();
         return;
       }
+      try { window.speechSynthesis.cancel(); } catch(e) {}
       const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ar-SA';
       const voices = window.speechSynthesis.getVoices();
       const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
       if (arabicVoice) utterance.voice = arabicVoice;
       
       utterance.onend = () => resolve();
-      utterance.onerror = () => resolve();
+      utterance.onerror = (e) => {
+        console.warn("SpeechSynthesis error:", e);
+        resolve();
+      };
       window.speechSynthesis.speak(utterance);
     });
   }

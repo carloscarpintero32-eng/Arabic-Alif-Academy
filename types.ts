@@ -33,6 +33,7 @@ export enum AppState {
   GAME_PROMPT = 'GAME_PROMPT',
   MINI_GAME = 'MINI_GAME',
   VOWELS = 'VOWELS',
+  INSTRUCTIONS = 'INSTRUCTIONS',
   END = 'END'
 }
 

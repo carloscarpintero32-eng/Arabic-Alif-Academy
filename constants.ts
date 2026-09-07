@@ -3,14 +3,14 @@ import { ArabicLetter } from './types';
 
 export const ALPHABET_DATA: ArabicLetter[] = [
   {
-    id: 1, name: 'Alif', isolated: 'أ', initial: 'أ', medial: 'ـأ', final: 'ـأ', transliteration: 'a',
-    englishComparison: 'Like the "a" in "apple".',
-    mouthTips: 'Keep your throat relaxed and make a short, clean sound.',
+    id: 1, name: 'Alif', isolated: 'ا', initial: 'ا', medial: 'ـا', final: 'ـا', transliteration: 'a',
+    englishComparison: 'Like the "a" in "father" or "apple".',
+    mouthTips: 'Keep your mouth open and relaxed for a clean, open sound.',
     examples: {
-      isolated: { prefix: '', letter: 'أ', suffix: 'رنب', translation: 'Rabbit' },
-      initial: { prefix: '', letter: 'أ', suffix: 'سد', translation: 'Lion' },
-      medial: { prefix: 'رـ', letter: 'ـأ', suffix: 'س', translation: 'Head' },
-      final: { prefix: 'مرفـ', letter: 'ـأ', suffix: '', translation: 'Port' }
+      isolated: { prefix: 'شـ', letter: 'ـا', suffix: 'ي', translation: 'Tea' },
+      initial: { prefix: 'بـ', letter: 'ـا', suffix: 'ب', translation: 'Door' },
+      medial: { prefix: 'تـ', letter: 'ـا', suffix: 'ج', translation: 'Crown' },
+      final: { prefix: 'عصـ', letter: 'ـا', suffix: '', translation: 'Stick' }
     }
   },
   {

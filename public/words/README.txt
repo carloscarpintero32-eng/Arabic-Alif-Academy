@@ -17,11 +17,11 @@ Total Files: 28 letters × 4 positions = 112 files
 Required Files by Letter:
 -------------------------
 
-LETTER 1 - Alif (أ):
-  letter-1-isolated.wav  → أرنب (Rabbit)
-  letter-1-initial.wav   → أسد (Lion)
-  letter-1-medial.wav    → رأس (Head)
-  letter-1-final.wav     → مرفأ (Port)
+LETTER 1 - Alif (ا):
+  letter-1-isolated.wav  → شاي (Tea)
+  letter-1-initial.wav   → باب (Door)
+  letter-1-medial.wav    → تاج (Crown)
+  letter-1-final.wav     → عصا (Stick)
 
 LETTER 2 - Ba (ب):
   letter-2-isolated.wav  → برتقال (Orange)

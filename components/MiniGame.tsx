@@ -64,10 +64,31 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
     }
   };
 
-  const playTargetWord = useCallback(() => {
-    const example = question.targetLetter.examples[question.targetForm];
-    const word = `${example.prefix}${example.letter}${example.suffix}`;
-    speechService.speak(word);
+  const playTargetWord = useCallback(async () => {
+    const targetLetter = question.targetLetter;
+    const targetForm = question.targetForm;
+    const audioPath = `/words/letter-${targetLetter.id}-${targetForm}.wav`;
+    const example = targetLetter.examples[targetForm];
+    const fullWordText = `${example.prefix}${example.letter}${example.suffix}`;
+
+    try {
+      const audio = new Audio(audioPath);
+      let isEnded = false;
+
+      audio.addEventListener('ended', () => {
+        isEnded = true;
+      });
+
+      audio.addEventListener('error', () => {
+        if (!isEnded) {
+          speechService.speak(fullWordText);
+        }
+      });
+
+      await audio.play();
+    } catch (error) {
+      speechService.speak(fullWordText);
+    }
   }, [question]);
 
   const handleNext = () => {
