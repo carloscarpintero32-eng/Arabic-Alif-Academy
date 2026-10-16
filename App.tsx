@@ -10,7 +10,7 @@ import { LessonScreen } from './components/LessonScreen';
 import { GamePrompt } from './components/GamePrompt';
 import { MiniGame } from './components/MiniGame';
 import { InstructionsScreen } from './components/InstructionsScreen';
-import { VowelsScreen } from './components/VowelsScreen';
+import { HarakatScreen } from './components/HarakatScreen';
 import { EndScreen } from './components/EndScreen';
 import { XCircle, ChevronLeft } from 'lucide-react';
 import { palette, zelligeTexture, plasterTexture } from './utils/moroccanTheme';
@@ -47,8 +47,8 @@ const App: React.FC = () => {
     setAppState(AppState.LESSON);
   }, []);
 
-  const handleVowelsSelect = useCallback(() => {
-    setAppState(AppState.VOWELS);
+  const handleHarakatSelect = useCallback(() => {
+    setAppState(AppState.HARAKAT);
   }, []);
 
   const handleLessonComplete = useCallback(() => {
@@ -70,12 +70,12 @@ const App: React.FC = () => {
       case AppState.WELCOME:
         return <WelcomeScreen onStart={startAlphabetJourney} />;
       case AppState.MODULES:
-        return <LetterSelectionScreen onSelectGroup={handleGroupSelect} onSelectVowels={handleVowelsSelect} onBack={showWelcome} />;
+        return <LetterSelectionScreen onSelectGroup={handleGroupSelect} onSelectHarakat={handleHarakatSelect} onBack={showWelcome} />;
       case AppState.LETTER_SELECTION:
         return (
           <LetterSelectionScreen 
             onSelectGroup={handleGroupSelect} 
-            onSelectVowels={handleVowelsSelect}
+            onSelectHarakat={handleHarakatSelect}
             onBack={showWelcome} 
           />
         );
@@ -104,8 +104,9 @@ const App: React.FC = () => {
             onBackToModules={proceedToGroupSelection}
           />
         );
+      case AppState.HARAKAT:
       case AppState.VOWELS:
-        return <VowelsScreen onBack={proceedToGroupSelection} />;
+        return <HarakatScreen onBack={proceedToGroupSelection} />;
       case AppState.END:
         return <EndScreen />;
       default:

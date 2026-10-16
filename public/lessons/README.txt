@@ -39,6 +39,12 @@ letter-25.wav  → Noon (ن)
 letter-26.wav  → Ha (ه)
 letter-27.wav  → Waw (و)
 letter-28.wav  → Ya (ي)
+harakat.wav            → Harakat Voice Lesson (Full Tutorial)
+harakat-fatha.wav      → Fatha Mark (َ) Sound/Example (ba)
+harakat-kasra.wav      → Kasra Mark (ِ) Sound/Example (bi)
+harakat-damma.wav      → Damma Mark (ُ) Sound/Example (bu)
+harakat-sukun.wav      → Sukun Mark (ْ) Sound/Example (b)
+harakat-shadda.wav     → Shadda Mark (ّ) Sound/Example (bb)
 
 Audio Content Suggestion:
 --------------------------

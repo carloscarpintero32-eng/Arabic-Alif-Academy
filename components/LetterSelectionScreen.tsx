@@ -5,11 +5,12 @@ import { useSounds } from '../hooks/useSounds';
 
 interface LetterSelectionScreenProps {
   onSelectGroup: (batch: number) => void;
-  onSelectVowels: () => void;
+  onSelectHarakat?: () => void;
+  onSelectVowels?: () => void;
   onBack: () => void;
 }
 
-export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ onSelectGroup, onSelectVowels, onBack }) => {
+export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ onSelectGroup, onSelectHarakat, onSelectVowels, onBack }) => {
   const { playSelect, playNavigation } = useSounds();
 
   const handleGroupSelect = (batch: number) => {
@@ -17,9 +18,13 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
     onSelectGroup(batch);
   };
 
-  const handleVowelsSelect = () => {
+  const handleHarakatSelect = () => {
     playSelect();
-    onSelectVowels();
+    if (onSelectHarakat) {
+      onSelectHarakat();
+    } else if (onSelectVowels) {
+      onSelectVowels();
+    }
   };
 
   const handleBack = () => {
@@ -79,12 +84,12 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
         ))}
 
         <button
-          onClick={handleVowelsSelect}
+          onClick={handleHarakatSelect}
           className="group p-5 rounded-2xl border-2 border-purple-300 hover:border-purple-600 bg-purple-100/40 transition-all transform flex items-center justify-between shadow-sm active:translate-y-1"
         >
           <div>
-            <h3 className="text-lg font-black text-slate-800 mb-1">Vowel Marks</h3>
-            <div className="text-3xl arabic-text text-purple-700">َ  ِ  ُ  ْ</div>
+            <h3 className="text-lg font-black text-slate-800 mb-1">Harakat Marks</h3>
+            <div className="text-3xl arabic-text text-purple-700">َ  ِ  ُ  ْ  ّ</div>
           </div>
           <div className="bg-white p-2 rounded-full shadow-inner group-hover:bg-purple-600 group-hover:text-white transition-colors">
             <Zap className="w-5 h-5" />

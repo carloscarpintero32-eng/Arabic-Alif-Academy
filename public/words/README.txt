@@ -18,9 +18,9 @@ Required Files by Letter:
 -------------------------
 
 LETTER 1 - Alif (ا):
-  letter-1-isolated.wav  → شاي (Tea)
-  letter-1-initial.wav   → باب (Door)
-  letter-1-medial.wav    → تاج (Crown)
+  letter-1-isolated.wav  → حوار (Dialogue)
+  letter-1-initial.wav   → أسد (Lion)
+  letter-1-medial.wav    → باب (Door)
   letter-1-final.wav     → عصا (Stick)
 
 LETTER 2 - Ba (ب):

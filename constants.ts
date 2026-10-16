@@ -7,9 +7,9 @@ export const ALPHABET_DATA: ArabicLetter[] = [
     englishComparison: 'Like the "a" in "father" or "apple".',
     mouthTips: 'Keep your mouth open and relaxed for a clean, open sound.',
     examples: {
-      isolated: { prefix: 'شـ', letter: 'ـا', suffix: 'ي', translation: 'Tea' },
-      initial: { prefix: 'بـ', letter: 'ـا', suffix: 'ب', translation: 'Door' },
-      medial: { prefix: 'تـ', letter: 'ـا', suffix: 'ج', translation: 'Crown' },
+      isolated: { prefix: 'حو', letter: 'ا', suffix: 'ر', translation: 'Dialogue' },
+      initial: { prefix: '', letter: 'أ', suffix: 'سد', translation: 'Lion' },
+      medial: { prefix: 'بـ', letter: 'ـا', suffix: 'ب', translation: 'Door' },
       final: { prefix: 'عصـ', letter: 'ـا', suffix: '', translation: 'Stick' }
     }
   },

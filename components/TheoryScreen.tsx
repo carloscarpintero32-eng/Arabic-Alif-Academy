@@ -85,7 +85,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onShowGu
           onClick={handleContinue}
           className="flex items-center space-x-2 bg-teal-700 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-teal-800 transition-all shadow-md transform hover:scale-105 active:scale-95"
         >
-          <span>Begin First Lesson</span>
+          <span>Start Learning</span>
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>
