@@ -20,6 +20,7 @@ const App: React.FC = () => {
   const [batchIndex, setBatchIndex] = useState(0); 
   const [testMode, setTestMode] = useState<'current' | 'all'>('current');
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+  const [gameQuestionsCount, setGameQuestionsCount] = useState(10);
 
   const showWelcome = useCallback(() => {
     speechService.stop();
@@ -51,12 +52,22 @@ const App: React.FC = () => {
     setAppState(AppState.HARAKAT);
   }, []);
 
+  const handleTestKnowledge = useCallback(() => {
+    speechService.stop();
+    setBatchIndex(3);
+    setTestMode('all');
+    setGameQuestionsCount(20);
+    setAppState(AppState.MINI_GAME);
+  }, []);
+
   const handleLessonComplete = useCallback(() => {
+    setGameQuestionsCount(10);
     setAppState(AppState.MINI_GAME);
   }, []);
 
   const handleBatchTwoStart = useCallback((mode: 'current' | 'all') => {
     setTestMode(mode);
+    setGameQuestionsCount(10);
     setAppState(AppState.MINI_GAME);
   }, []);
 
@@ -70,12 +81,20 @@ const App: React.FC = () => {
       case AppState.WELCOME:
         return <WelcomeScreen onStart={startAlphabetJourney} />;
       case AppState.MODULES:
-        return <LetterSelectionScreen onSelectGroup={handleGroupSelect} onSelectHarakat={handleHarakatSelect} onBack={showWelcome} />;
+        return (
+          <LetterSelectionScreen 
+            onSelectGroup={handleGroupSelect} 
+            onSelectHarakat={handleHarakatSelect} 
+            onTestKnowledge={handleTestKnowledge}
+            onBack={showWelcome} 
+          />
+        );
       case AppState.LETTER_SELECTION:
         return (
           <LetterSelectionScreen 
             onSelectGroup={handleGroupSelect} 
             onSelectHarakat={handleHarakatSelect}
+            onTestKnowledge={handleTestKnowledge}
             onBack={showWelcome} 
           />
         );
@@ -100,6 +119,7 @@ const App: React.FC = () => {
           <MiniGame 
             batchIndex={batchIndex} 
             testMode={testMode} 
+            totalQuestions={gameQuestionsCount}
             onExit={proceedToGroupSelection} 
             onBackToModules={proceedToGroupSelection}
           />

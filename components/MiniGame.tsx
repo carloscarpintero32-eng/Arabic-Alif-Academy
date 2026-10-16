@@ -9,6 +9,7 @@ import { AlertCircle, Grid as GridIcon, CheckCircle2, RotateCcw, LogOut, Trophy,
 interface MiniGameProps {
   batchIndex: number;
   testMode: 'current' | 'all';
+  totalQuestions?: number;
   onExit: () => void;
   onBackToModules: () => void;
 }
@@ -19,7 +20,13 @@ interface Question {
   options: ArabicLetter[];
 }
 
-export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit, onBackToModules }) => {
+export const MiniGame: React.FC<MiniGameProps> = ({ 
+  batchIndex, 
+  testMode, 
+  totalQuestions = 10,
+  onExit, 
+  onBackToModules 
+}) => {
   const [currentRound, setCurrentRound] = useState(0);
   const [score, setScore] = useState(0);
   const [userGuessId, setUserGuessId] = useState<number | null>(null);
@@ -28,13 +35,16 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
   const { playCorrect, playIncorrect, playCelebration, playClick, playNavigation } = useSounds();
 
   const pool = useMemo(() => {
+    if (totalQuestions === 20 || (batchIndex === 3 && testMode === 'all')) {
+      return ALPHABET_DATA;
+    }
     const currentBatchStart = batchIndex * 7;
     const currentBatchEnd = (batchIndex + 1) * 7;
     if (batchIndex === 0) return ALPHABET_DATA.slice(0, 7);
     return testMode === 'current'
       ? ALPHABET_DATA.slice(currentBatchStart, currentBatchEnd)
       : ALPHABET_DATA.slice(0, currentBatchEnd);
-  }, [batchIndex, testMode]);
+  }, [batchIndex, testMode, totalQuestions]);
 
   const generateQuestion = useCallback((): Question => {
     const targetLetter = pool[Math.floor(Math.random() * pool.length)];
@@ -93,7 +103,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
 
   const handleNext = () => {
     playClick();
-    if (currentRound < 9) {
+    if (currentRound < totalQuestions - 1) {
       setCurrentRound(prev => prev + 1);
       setQuestion(generateQuestion());
       setUserGuessId(null);
@@ -120,7 +130,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
   };
 
   if (isFinished) {
-    const isPassing = score > 5;
+    const isPassing = score >= Math.ceil(totalQuestions * 0.6);
     return (
       <div className="flex flex-col items-center justify-center text-center space-y-6 animate-fadeIn h-full py-6">
         <div className={`p-5 rounded-full ${isPassing ? 'bg-green-100' : 'bg-amber-100'}`}>
@@ -132,7 +142,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
         </div>
         <div>
           <h2 className="text-3xl font-black text-slate-800">{isPassing ? 'Mabrouk!' : 'Try Again!'}</h2>
-          <p className="text-lg text-slate-500 font-bold">Score: {score} / 10</p>
+          <p className="text-lg text-slate-500 font-bold">Score: {score} / {totalQuestions}</p>
         </div>
         <div className="flex flex-col space-y-3 w-full">
           <button
@@ -160,7 +170,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
     <div className="flex flex-col h-full animate-fadeIn items-center">
       <div className="w-full flex justify-between items-center mb-6">
         <div className="text-xs font-black text-teal-500 uppercase tracking-widest">
-          Round {currentRound + 1} / 10
+          Round {currentRound + 1} / {totalQuestions}
         </div>
         <div className="text-xs font-black text-teal-700 bg-teal-50 px-3 py-1 rounded-full uppercase">
           Score: {score}
@@ -227,7 +237,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({ batchIndex, testMode, onExit
             onClick={handleNext}
             className="w-full flex items-center justify-center space-x-3 bg-teal-700 text-white p-5 rounded-2xl text-lg font-black hover:bg-teal-800 shadow-lg animate-fadeIn"
           >
-            <span>{currentRound < 9 ? 'Next Round' : 'Results'}</span>
+            <span>{currentRound < totalQuestions - 1 ? 'Next Round' : 'Results'}</span>
             <ArrowRight className="w-5 h-5" />
           </button>
         ) : (

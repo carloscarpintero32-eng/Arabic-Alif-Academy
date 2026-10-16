@@ -1,16 +1,17 @@
 
 import React from 'react';
-import { ChevronRight, Grid as GridIcon, Zap } from 'lucide-react';
+import { ChevronRight, Grid as GridIcon, Zap, Trophy } from 'lucide-react';
 import { useSounds } from '../hooks/useSounds';
 
 interface LetterSelectionScreenProps {
   onSelectGroup: (batch: number) => void;
   onSelectHarakat?: () => void;
   onSelectVowels?: () => void;
+  onTestKnowledge?: () => void;
   onBack: () => void;
 }
 
-export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ onSelectGroup, onSelectHarakat, onSelectVowels, onBack }) => {
+export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ onSelectGroup, onSelectHarakat, onSelectVowels, onTestKnowledge, onBack }) => {
   const { playSelect, playNavigation } = useSounds();
 
   const handleGroupSelect = (batch: number) => {
@@ -24,6 +25,13 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
       onSelectHarakat();
     } else if (onSelectVowels) {
       onSelectVowels();
+    }
+  };
+
+  const handleTestKnowledge = () => {
+    playSelect();
+    if (onTestKnowledge) {
+      onTestKnowledge();
     }
   };
 
@@ -93,6 +101,19 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
           </div>
           <div className="bg-white p-2 rounded-full shadow-inner group-hover:bg-purple-600 group-hover:text-white transition-colors">
             <Zap className="w-5 h-5" />
+          </div>
+        </button>
+
+        <button
+          onClick={handleTestKnowledge}
+          className="group p-5 rounded-2xl border-2 border-indigo-300 hover:border-indigo-600 bg-indigo-100/40 transition-all transform flex items-center justify-between shadow-sm active:translate-y-1"
+        >
+          <div>
+            <h3 className="text-lg font-black text-slate-800 mb-1">Test Your Knowledge</h3>
+            <div className="text-xs font-bold text-indigo-700 uppercase tracking-wider">20 Questions • All Letters</div>
+          </div>
+          <div className="bg-white p-2 rounded-full shadow-inner group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+            <Trophy className="w-5 h-5" />
           </div>
         </button>
       </div>
