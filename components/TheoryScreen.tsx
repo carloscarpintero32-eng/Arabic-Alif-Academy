@@ -37,7 +37,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onShowGu
           </div>
           <div>
             <h3 className="font-bold text-slate-800">28 Letters</h3>
-            <p className="text-sm text-slate-500 leading-snug">The alphabet consists of 28 letters, all of which represent consonants, though three (Alif, Waw, Ya) can function as long vowels. Short vowels are indicated by diacritical marks (tashkeel) not part of the core alphabet!</p>
+            <p className="text-sm text-slate-500 leading-snug">The alphabet consists of 28 letters, all of which represent consonants, though three (Alif, Waw, Ya) can function as long vowels. Short vowels are indicated by diacritical marks called ḥarakāt that are not part of the core alphabet.</p>
           </div>
         </div>
 
