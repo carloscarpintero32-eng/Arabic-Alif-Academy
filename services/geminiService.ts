@@ -125,6 +125,14 @@ export class SpeechService {
   }
 
   async speak(text: string): Promise<void> {
+    if (this.audioContext && this.audioContext.state === 'suspended') {
+      try {
+        await this.audioContext.resume();
+      } catch (e) {
+        console.warn("Could not resume AudioContext", e);
+      }
+    }
+
     if (!process.env.API_KEY) {
       return this.fallbackSpeak(text);
     }

@@ -139,21 +139,21 @@ const App: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-0 sm:p-4"
+      className="min-h-screen h-[100dvh] flex items-center justify-center p-0 sm:p-4"
       style={{ background: `radial-gradient(circle at top, ${palette.limewash} 0%, ${palette.warmSand} 45%, #EBDDC8 100%)` }}
     >
       {/* Phone frame with Moroccan gold border */}
       <div
-        className="w-full h-full sm:h-[92vh] sm:aspect-[9/18] sm:max-w-[450px] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative"
+        className="w-full h-full sm:h-[92vh] sm:aspect-[9/18] sm:max-w-[450px] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative sm:border-2"
         style={{
           background: palette.plaster,
-          border: `2px solid ${palette.borderStrong}`,
+          borderColor: palette.borderStrong,
           boxShadow: `0 24px 60px ${palette.shadow}`,
         }}
       >
         {/* Header */}
         <header
-          className="relative text-white p-5 flex justify-between items-center shrink-0 overflow-hidden"
+          className="relative text-white p-5 pt-[max(1.25rem,env(safe-area-inset-top))] flex justify-between items-center shrink-0 overflow-hidden"
           style={{
             background: `linear-gradient(135deg, ${palette.majorelleBlue} 0%, ${palette.zelligeTeal} 100%)`,
             boxShadow: `inset 0 -1px 0 rgba(255,255,255,0.18)`,
@@ -188,7 +188,7 @@ const App: React.FC = () => {
 
         {/* Progress bar */}
         {(appState === AppState.LESSON || appState === AppState.MINI_GAME) && (
-          <div className="absolute top-[72px] left-0 w-full h-1" style={{ background: palette.softClay }}>
+          <div className="w-full h-1 shrink-0" style={{ background: palette.softClay }}>
             <div
               className="h-full transition-all duration-500"
               style={{
@@ -200,7 +200,7 @@ const App: React.FC = () => {
         )}
 
         <main
-          className="flex-1 p-5 flex flex-col overflow-y-auto overflow-x-hidden"
+          className="flex-1 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col overflow-y-auto overflow-x-hidden"
           style={{ background: palette.plaster }}
         >
           {renderContent()}
