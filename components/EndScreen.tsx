@@ -12,7 +12,7 @@ export const EndScreen: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-center space-y-10 animate-fadeIn h-full py-12 px-6">
+    <div className="flex flex-col items-center justify-center text-center space-y-10 animate-fadeIn min-h-full py-12 px-6">
       <div className="relative scale-125 mb-4">
         <Trophy className="w-32 h-32 text-yellow-500 animate-pulse" />
         <Star className="absolute -top-2 -left-2 text-amber-400 w-8 h-8 animate-spin duration-[5000ms]" />

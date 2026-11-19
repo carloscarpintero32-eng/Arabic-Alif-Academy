@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useLayoutEffect } from 'react';
 import { ALPHABET_DATA } from '../constants';
 import { ArabicLetter, LetterPosition } from '../types';
 import { speechService } from '../services/geminiService';
@@ -33,6 +33,19 @@ export const MiniGame: React.FC<MiniGameProps> = ({
   const [isRoundResolved, setIsRoundResolved] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const { playCorrect, playIncorrect, playCelebration, playClick, playNavigation } = useSounds();
+
+  useLayoutEffect(() => {
+    const resetScroll = () => {
+      const mainEl = document.querySelector('main');
+      if (mainEl) {
+        mainEl.scrollTop = 0;
+      }
+      window.scrollTo(0, 0);
+    };
+    resetScroll();
+    const rafId = requestAnimationFrame(resetScroll);
+    return () => cancelAnimationFrame(rafId);
+  }, [currentRound, isFinished]);
 
   const pool = useMemo(() => {
     if (totalQuestions === 20 || (batchIndex === 3 && testMode === 'all')) {
@@ -132,7 +145,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({
   if (isFinished) {
     const isPassing = score >= Math.ceil(totalQuestions * 0.6);
     return (
-      <div className="flex flex-col items-center justify-center text-center space-y-6 animate-fadeIn h-full py-6">
+      <div className="flex flex-col items-center justify-center text-center space-y-6 animate-fadeIn min-h-full py-6">
         <div className={`p-5 rounded-full ${isPassing ? 'bg-green-100' : 'bg-amber-100'}`}>
           {isPassing ? (
             <Trophy className="w-16 h-16 text-green-600 animate-bounce" />
@@ -167,7 +180,7 @@ export const MiniGame: React.FC<MiniGameProps> = ({
   const isCorrect = userGuessId === question.targetLetter.id;
 
   return (
-    <div className="flex flex-col h-full animate-fadeIn items-center">
+    <div className="flex flex-col min-h-full animate-fadeIn items-center">
       <div className="w-full flex justify-between items-center mb-6">
         <div className="text-xs font-black text-teal-500 uppercase tracking-widest">
           Round {currentRound + 1} / {totalQuestions}

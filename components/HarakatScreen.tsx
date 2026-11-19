@@ -139,7 +139,7 @@ export const HarakatScreen: React.FC<HarakatScreenProps> = ({ onBack }) => {
   }, [isAudioPlaying]);
 
   return (
-    <div className="flex flex-col space-y-6 animate-fadeIn h-full">
+    <div className="flex flex-col space-y-6 animate-fadeIn min-h-full">
       <div>
         <h2 className="text-3xl font-black text-slate-800 tracking-tight">Harakat Marks</h2>
       </div>

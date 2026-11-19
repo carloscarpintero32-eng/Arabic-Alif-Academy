@@ -33,7 +33,7 @@ export const GamePrompt: React.FC<GamePromptProps> = ({ batchIndex = 1, onSelect
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn h-full py-4">
+    <div className="flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn min-h-full py-4">
       <div className="space-y-3">
         <div className="inline-flex items-center space-x-2 bg-amber-100 text-amber-800 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider">
           <Sparkles className="w-4 h-4 text-amber-600" />

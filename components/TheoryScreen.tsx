@@ -22,7 +22,7 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onShowGu
   };
 
   return (
-    <div className="flex flex-col space-y-8 animate-fadeIn h-full pb-4">
+    <div className="flex flex-col space-y-8 animate-fadeIn min-h-full pb-4">
       <div className="space-y-2">
         <h2 className="text-3xl font-bold text-slate-800 border-b-4 border-teal-100 pb-2">The Magic of Arabic</h2>
         <p className="text-lg text-slate-600 leading-relaxed">

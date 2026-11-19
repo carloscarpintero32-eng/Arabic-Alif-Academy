@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useLayoutEffect } from 'react';
 import { AppState } from './types';
 import { speechService } from './services/geminiService';
 import { WelcomeScreen } from './components/WelcomeScreen';
@@ -12,8 +12,7 @@ import { MiniGame } from './components/MiniGame';
 import { InstructionsScreen } from './components/InstructionsScreen';
 import { HarakatScreen } from './components/HarakatScreen';
 import { EndScreen } from './components/EndScreen';
-import { XCircle, ChevronLeft } from 'lucide-react';
-import { palette, zelligeTexture, plasterTexture } from './utils/moroccanTheme';
+import { palette } from './utils/moroccanTheme';
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.WELCOME);
@@ -21,6 +20,22 @@ const App: React.FC = () => {
   const [testMode, setTestMode] = useState<'current' | 'all'>('current');
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [gameQuestionsCount, setGameQuestionsCount] = useState(10);
+  const mainRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const resetScroll = () => {
+      if (mainRef.current) {
+        mainRef.current.scrollTop = 0;
+      }
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    };
+
+    resetScroll();
+    const rafId = requestAnimationFrame(resetScroll);
+    return () => cancelAnimationFrame(rafId);
+  }, [appState, batchIndex, currentLetterIndex]);
 
   const showWelcome = useCallback(() => {
     speechService.stop();
@@ -69,11 +84,6 @@ const App: React.FC = () => {
     setTestMode(mode);
     setGameQuestionsCount(10);
     setAppState(AppState.MINI_GAME);
-  }, []);
-
-  const quitGame = useCallback(() => {
-    speechService.stop();
-    setAppState(AppState.END);
   }, []);
 
   const renderContent = () => {
@@ -133,9 +143,6 @@ const App: React.FC = () => {
     }
   };
 
-  const showQuitButton = appState !== AppState.WELCOME && appState !== AppState.END;
-  const showBackButton = appState !== AppState.WELCOME && appState !== AppState.END;
-
   return (
     <div
       className="min-h-screen h-[100dvh] flex items-center justify-center p-0 sm:p-4"
@@ -150,44 +157,9 @@ const App: React.FC = () => {
           boxShadow: `0 24px 60px ${palette.shadow}`,
         }}
       >
-        {/* Header */}
-        <header
-          className="relative text-white p-5 pt-[max(1.25rem,env(safe-area-inset-top))] flex justify-between items-center shrink-0 overflow-hidden"
-          style={{
-            background: `linear-gradient(135deg, ${palette.majorelleBlue} 0%, ${palette.zelligeTeal} 100%)`,
-            boxShadow: `inset 0 -1px 0 rgba(255,255,255,0.18)`,
-          }}
-        >
-          {/* Texture overlays */}
-          <div className="absolute inset-0 opacity-60" style={zelligeTexture(0.09)} />
-          <div className="absolute inset-0 opacity-50" style={plasterTexture(0.08)} />
-
-          <div className="relative flex items-center space-x-3">
-            {showBackButton && (
-              <button
-                onClick={showWelcome}
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm transition hover:bg-white/20"
-                title="Back"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-            )}
-            <h1 className="text-[18px] font-semibold tracking-[0.01em]">Alif Academy</h1>
-          </div>
-
-          {showQuitButton && (
-            <button
-              onClick={quitGame}
-              className="relative grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm transition hover:bg-red-500/40"
-            >
-              <XCircle className="w-5 h-5" />
-            </button>
-          )}
-        </header>
-
         {/* Progress bar */}
         {(appState === AppState.LESSON || appState === AppState.MINI_GAME) && (
-          <div className="w-full h-1 shrink-0" style={{ background: palette.softClay }}>
+          <div className="w-full h-1 shrink-0 mt-[env(safe-area-inset-top)]" style={{ background: palette.softClay }}>
             <div
               className="h-full transition-all duration-500"
               style={{
@@ -199,7 +171,11 @@ const App: React.FC = () => {
         )}
 
         <main
-          className="flex-1 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col overflow-y-auto overflow-x-hidden"
+          ref={mainRef}
+          key={`${appState}-${batchIndex}-${currentLetterIndex}`}
+          className={`flex-1 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col overflow-y-auto overflow-x-hidden ${
+            appState === AppState.WELCOME ? 'pt-5' : 'pt-[max(1.25rem,env(safe-area-inset-top))]'
+          }`}
           style={{ background: palette.plaster }}
         >
           {renderContent()}

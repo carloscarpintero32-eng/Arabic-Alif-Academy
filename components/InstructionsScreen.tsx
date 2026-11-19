@@ -22,7 +22,7 @@ export const InstructionsScreen: React.FC<InstructionsScreenProps> = ({ onContin
   };
 
   return (
-    <div className="flex flex-col space-y-6 animate-fadeIn h-full pb-4">
+    <div className="flex flex-col space-y-6 animate-fadeIn min-h-full pb-4">
       {/* Header */}
       <div className="space-y-2">
         <div className="flex items-center space-x-2 text-teal-700">

@@ -65,7 +65,7 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
   ];
 
   return (
-    <div className="flex flex-col space-y-6 animate-fadeIn h-full">
+    <div className="flex flex-col space-y-6 animate-fadeIn min-h-full">
       <div className="space-y-1">
         <h2 className="text-3xl font-black text-slate-800 tracking-tight">Study Center</h2>
         <p className="text-sm text-slate-500 font-bold uppercase tracking-widest">Master each set</p>

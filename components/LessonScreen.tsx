@@ -124,7 +124,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({
   if (!currentLetter) return <div className="p-10 text-center">Loading...</div>;
 
   return (
-    <div className="flex flex-col h-full animate-fadeIn">
+    <div className="flex flex-col min-h-full animate-fadeIn">
       <div className="mb-2">
         <div className="flex justify-between items-baseline">
           <h2 className="text-2xl font-black text-slate-800 tracking-tight">
