@@ -6,12 +6,11 @@ import { useSounds } from '../hooks/useSounds';
 interface LetterSelectionScreenProps {
   onSelectGroup: (batch: number) => void;
   onSelectHarakat?: () => void;
-  onSelectVowels?: () => void;
   onTestKnowledge?: () => void;
   onBack: () => void;
 }
 
-export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ onSelectGroup, onSelectHarakat, onSelectVowels, onTestKnowledge, onBack }) => {
+export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ onSelectGroup, onSelectHarakat, onTestKnowledge, onBack }) => {
   const { playSelect, playNavigation } = useSounds();
 
   const handleGroupSelect = (batch: number) => {
@@ -23,8 +22,6 @@ export const LetterSelectionScreen: React.FC<LetterSelectionScreenProps> = ({ on
     playSelect();
     if (onSelectHarakat) {
       onSelectHarakat();
-    } else if (onSelectVowels) {
-      onSelectVowels();
     }
   };
 

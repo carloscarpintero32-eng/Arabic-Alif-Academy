@@ -125,7 +125,6 @@ const App: React.FC = () => {
           />
         );
       case AppState.HARAKAT:
-      case AppState.VOWELS:
         return <HarakatScreen onBack={proceedToGroupSelection} />;
       case AppState.END:
         return <EndScreen />;
