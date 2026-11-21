@@ -70,24 +70,24 @@ export const TheoryScreen: React.FC<TheoryScreenProps> = ({ onContinue, onShowGu
             <p className="text-sm text-slate-500 leading-snug">Arabic is always cursive. Letters connect to each other in a beautiful flowing script.</p>
           </div>
         </div>
-      </div>
 
-      <div className="mt-auto flex justify-between items-center">
-        <button
-          onClick={handleShowGuide}
-          className="flex items-center space-x-2 bg-white border-2 border-teal-200 text-teal-700 px-5 py-4 rounded-xl text-base font-bold hover:bg-teal-50 transition-all shadow-sm"
-        >
-          <HelpCircle className="w-5 h-5 text-teal-600" />
-          <span>Lesson Guide</span>
-        </button>
+        <div className="flex justify-between items-center">
+          <button
+            onClick={handleShowGuide}
+            className="flex items-center space-x-2 bg-white border-2 border-teal-200 text-teal-700 px-5 py-4 rounded-xl text-base font-bold hover:bg-teal-50 transition-all shadow-sm"
+          >
+            <HelpCircle className="w-5 h-5 text-teal-600" />
+            <span>Lesson Guide</span>
+          </button>
 
-        <button
-          onClick={handleContinue}
-          className="flex items-center space-x-2 bg-teal-700 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-teal-800 transition-all shadow-md transform hover:scale-105 active:scale-95"
-        >
-          <span>Start Learning</span>
-          <ArrowRight className="w-5 h-5" />
-        </button>
+          <button
+            onClick={handleContinue}
+            className="flex items-center space-x-2 bg-teal-700 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-teal-800 transition-all shadow-md transform hover:scale-105 active:scale-95"
+          >
+            <span>Start Learning</span>
+            <ArrowRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </div>
   );
